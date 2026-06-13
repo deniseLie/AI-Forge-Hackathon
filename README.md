@@ -76,6 +76,52 @@ Daytona 60 sandboxes, transcripts attached | VideoDB 1 film, M scenes | SenseNov
 Identity-sensitive perspectives stay **concern lenses** (third person, evidence-cited), never
 first-person roleplay. ASAS is the ad-accurate regulator.
 
+### 4.1 How the 60 agents are created
+
+Two senses: design-time generation and run-time instantiation.
+
+**Design-time: ~37 seeds -> 60 agents.** Hand-author archetype seed cards (the IP), then expand
+deterministically:
+- ~12 persona seeds x trait-jitter variants -> 35 persona agents
+- 15 concern-lens seeds (1:1, no jitter) -> 15 lens agents
+- 10 stakeholder seeds (1:1) -> 10 stakeholder agents
+
+Lenses and stakeholders are not jittered (a lens is one fixed analytical perspective). Only personas
+multiply, because within-archetype diversity is the point.
+
+A seed card:
+```yaml
+id: toa_payoh_auntie
+kind: persona            # persona | lens | stakeholder
+voice: first_person      # personas=1st; lenses & stakeholders=3rd (anti-stereotype rule)
+emoji: "elderly_woman"
+label: Toa Payoh retiree auntie
+concern_axes: [price, privacy, font_size, family_safety]
+register: "Singlish, WhatsApp-forward cadence, wary of new tech"
+grounding_query: "r/singapore (elderly OR auntie) (scam OR privacy OR price)"
+jitter: { age: [58, 72], optimism: [-0.6, 0.0], tech_savvy: [0.1, 0.4] }
+```
+
+**Anti-stereotype rule, enforced at creation:** lifestyle/age/occupation -> first-person persona;
+race/religion/identity -> third-person concern LENS. The system never roleplays an identity in the
+first person.
+
+**Trait jitter is deterministic,** keyed by `(seed_id, variant_index)` on a fixed grid, not random,
+so the golden run is reproducible and cache-stable:
+`auntie -> {auntie_1 age60/pessimist, auntie_2 age68/mid, auntie_3 age72/low-tech}`.
+Output: `personas.json`, 60 concrete records.
+
+**Run-time: each record -> one sandboxed, self-grounding Kimi call,** assembled as:
+- **SHARED PREFIX (identical for all 60 -> prefix-cache hit):** task + severity rubric (0-3) + JSON
+  schema + the creative manifest (copy + keyframes + transcript + `[scene@t]` indices) + fence rules
+  + SIMULATED framing. The big creative payload is cached ONCE, not 60x.
+- **PER-AGENT BLOCK (the only varying part):** the agent's persona card + its own Bright Data
+  grounding pack (quote-fenced), executed inside the agent's Daytona sandbox.
+
+That split is why 60 agents is affordable: the expensive context is one cached prefix; only a small
+persona+grounding block differs per agent. Seeds are hand-written (highest-leverage content work) and
+may be LLM-bootstrapped then curated.
+
 ## 5. Golden-run scenario
 
 Reuse the **MerlionTel** fiction as a 30-second ad film with three deliberately layered landmines,
@@ -119,7 +165,7 @@ residual 28 is the premise, that is your call." This is also the clean kill for 
   "evidence_id": "gp_reddit_014 | null",                  // self-grounded, injection-fenced
   "sandbox_id": "dt_a17", "question": "one press-conference question" }
 
-// golden run (the single artifact the stage replays)
+// golden run (the single artifact the stage replays AND the dashboard renders)
 { "run_id": "...", "creative_manifest": [ /* ... */ ], "grounding_packs": { /* ... */ },
   "reactions": [ /* 60 */ ],
   "aggregate": {"blast_score": 84, "clusters": [], "timeline_heatmap": [], "stability": "84 +/- 3"},
@@ -128,7 +174,106 @@ residual 28 is the premise, that is your call." This is also the clean kill for 
   "sponsor_trace": [] }
 ```
 
-## 8. Build plan (unified repo, no lanes, golden-run first)
+## 8. Dashboard: the final result
+
+The 60 agent reactions are summarized into ONE object (`golden_run.json`) and the dashboard is a
+**pure render of that object**. This is the final result the user gets and the on-stage surface.
+
+### 8.1 The reduce (60 -> 1)
+
+```
+reduce(reactions[60], runs=3) -> dashboard_state:
+  responders   = reactions where status != "abstain"        # gray tiles, excluded from denominator
+  blast_score  = round(100 * count(r.severity >= 2) / |responders|)   # median across 3 runs
+  band         = spread across the 3 runs                   # "84 +/- 3"
+  decision     = DELAY if blast>=70 : REVISE if blast>=40 : LAUNCH
+  clusters     = groupby(objection_category):
+                   pct = members/|responders|
+                   pull_quote = pick(max severity AND has evidence_id)
+                   badge = evidence-chip if evidence_id else "model speculation"
+                 -> sort desc, take top 5
+  timeline[scene] = count(r where scene in r.trigger_moments)/|responders| ; peak = argmax
+  panel_tiles  = 60 x {id, kind, emoji, sentiment, severity, quote, fix_tier, evidence_id}
+  fix_rollup   = groupby(fix_tier): share of blast each tier explains   # drives 84 -> 55 -> 28
+  stakeholders = reactions where kind=="stakeholder" -> verdict badges
+  headline     = generate(top_cluster, brand)               # the future-artifact text
+```
+
+Because the UI is a pure function of `golden_run.json`, **Rung 0** = hand-author that JSON and the
+dashboard renders fully; later swap in the real reduce output, renderer unchanged.
+
+### 8.2 Aesthetic: War Room Broadsheet
+
+A live broadsheet front page of a situation room. Layout uses the newspaper "above the fold / below
+the fold" metaphor: above is the verdict, below is the forensics.
+
+| Axis | Choice |
+|------|--------|
+| Display type | **Fraunces** (editorial serif; black weight for the giant number, italic for the headline) |
+| Data type | **IBM Plex Mono** (every number, %, agent id, timestamp, ticker, stability band) |
+| Artifact nameplate | a blackletter face (e.g. **UnifrakturCook**) only for "THE STRAITS STANDARD" |
+| Base | newsprint-on-ink: `--ink #0B0C10`, `--paper #F3EFE3` (warm white, projector-safe) |
+| Severity heat | `--calm #2E4A45` -> `--rising #E8A317` -> `--severe #F5402C` -> `--blast #FF2D55`, FILL + white text, never red text on black |
+| Signature motion | the panel ignites in a staggered cascade while the Blast number rolls up and its heat meter fills |
+
+### 8.3 Layout
+
+```
++---------------------------------------------------------------------------+
+| PREMORTEM | THE STRAITS STANDARD          SIMULATED . MerlionTel . 13 Jun  |  MASTHEAD
+| <ticker> KIMI 60 . BRIGHT DATA 3 src . DAYTONA 60 sandboxes . VIDEODB 1    |
++-----------------------------------------------+---------------------------+
+|  BLAST SCORE                                  |     [ AD KEYFRAME ]       |  ABOVE
+|  +-----------+                                |      under test           |  THE
+|  |    84     |  +/- 3   median of 3 runs      |                           |  FOLD
+|  +-----------+                                |    [ DECISION: DELAY ]    |  (verdict)
+|  % of the panel that would go public          |                           |
+|                                                                           |
+|  "MerlionTel's 'We're Listening' Ad Sparks Privacy Backlash"  (headline)  |
++-------------------- BELOW THE FOLD . THE FORENSICS ------------------------+  FOLD RULE
+| THE KOPITIAM PANEL    | TOP OBJECTIONS         | BLAST MAP (timeline)       |
+| [][][][][][][] 60     | # PRIVACY      78% [E] |  .::|##|::.  0:00---0:30   |
+| [][][][][][][] ignite | # RACE / CMIO  61% [E] |  peak ^ 0:12 = 71%         |
+| [][][][][][][] click  | # SURVEILLANCE 55% [E] |  click bar = who + frame   |
+| sq=persona <>=lens    | # PRICING      22%     |  [news]YES [scales]ASAS HI |
++-----------------------+------------------------+----------------------------+
+| THE FIX   84 --> 55 --> 28   (residual 28 = your call)                     |
+| COPY rewrite 2 lines | PRODUCTION cut 0:12 scene | DECISION the premise     |
++---------------------------------------------------------------------------+
+| TOMORROW'S HEADLINE  [ full fake front page . SIMULATED ]  <-> page-12     |
++---------------------------------------------------------------------------+
+```
+
+### 8.4 Component format
+
+- **Blast Score banner (hero):** number 120pt+ Fraunces Black on a heat meter that fills to the
+  score and shifts hue along the ramp; count-up 0 -> 84 on reveal; `+/- 3` in mono; a DECISION chip
+  (LAUNCH / REVISE / DELAY, fill + white text) from the thresholds.
+- **Kopitiam Panel (60 tiles):** shape-coded by `kind` (square=persona, diamond=lens, tab=stakeholder),
+  fill = severity heat, abstain = flat gray (excluded from the denominator). Click -> quote card
+  (36pt+ quote, the agent's `question`, a `fix_tier` tag, evidence chip if `evidence_id`). Tiles flip
+  neutral -> heat in a staggered ignition cascade on reveal.
+- **Top objections:** up to 5 ranked horizontal bars; category (serif), `%` (mono), width = share,
+  fill = heat, a newspaper pull quote (italic serif), evidence chip or muted "model speculation".
+- **Blast map (timeline):** ad runtime on X; one bar per scene, height + heat = agents triggered; the
+  peak flies a callout ("0:12 . 71%") with a keyframe thumbnail; click a bar -> enlarged frame + the
+  agents who triggered there + their fix tiers.
+- **Stakeholder badges:** a strip from the 10 stakeholder agents -> journalist would-run YES, ASAS
+  interest HIGH, opposition angle, competitor would pounce, staff morale risk.
+- **The Fix:** a step-down chart 84 -> 55 -> 28 (residual stamped "DECISION . your call") + three tier
+  cards: COPY (the 2 rewritten lines, before/after), PRODUCTION (cut scene 0:12 / recast, "unfixable
+  by wording"), DECISION (the surveillance premise).
+- **Tomorrow's Headline:** the full fake front page (blackletter nameplate, SenseNova-degraded
+  keyframe, headline + subhead + fake byline, diagonal SIMULATED watermark) with a page-12 toggle.
+
+### 8.5 Projector / presentation mode
+
+Font floor 28pt, Blast 120pt+, quotes 36pt+, the peak callout 40-60pt solo. Dark base, paper-white
+text, heat as fill not text. Test the light-theme toggle on the real projector at lunch. A
+presentation mode walks the six demo beats by key/line cue over the static `golden_run.json`, kiosk,
+zero tabs, hotkey to the backup recording within 5 seconds. Nothing live, nothing to break.
+
+## 9. Build plan (unified repo, no lanes, golden-run first)
 
 **Stack (locked):** Python **FastAPI** backend + single static HTML/CSS/JS dashboard served by
 FastAPI (no build step, instant SSE, matches the VideoDB/Daytona Python SDKs). Leaner than Next.js
@@ -166,7 +311,7 @@ current rung.
 agents. 90 min -> demo = Rung 0 replay of the best golden JSON + report. **Never cut:** the replay
 harness, 2 rehearsals, backup recording.
 
-## 9. Demo script (2 min, ad-film edition)
+## 10. Demo script (2 min, ad-film edition)
 
 | Time | Screen | Line |
 |------|--------|------|
@@ -180,7 +325,7 @@ harness, 2 rehearsals, backup recording.
 Naming pass: "each agent sandboxed in **Daytona**, self-grounding via **Bright Data**, seeing the film
 through **VideoDB**, reasoning on **Kimi K2.6**, scandal frame by **SenseNova**."
 
-## 10. Risk register
+## 11. Risk register
 
 | Risk | Mitigation |
 |------|-----------|
@@ -192,7 +337,7 @@ through **VideoDB**, reasoning on **Kimi K2.6**, scandal frame by **SenseNova**.
 | Real-ad legal / POFMA | golden run is fictional MerlionTel; real disasters stay text smoke tests; fictional masthead + SIMULATED watermark |
 | Identity-persona ethics | concern-lens design (third person, evidence-cited) + dogfood-our-own-script backup slide |
 
-## 11. Judging-criteria mapping
+## 12. Judging-criteria mapping
 
 | Criterion | Our card |
 |-----------|----------|
@@ -201,19 +346,19 @@ through **VideoDB**, reasoning on **Kimi K2.6**, scandal frame by **SenseNova**.
 | Real-Life Problem | ad backlash is a real budget line (focus groups $5-15k) and named disasters (E-Pay, Pepsi, Bud Light) |
 | Sponsored Usage | 5 core sponsors, each architecturally load-bearing, with a quantified receipts slide |
 
-## 12. Repo layout (planned)
+## 13. Repo layout (planned)
 
 ```
-/app           FastAPI app + static dashboard (index.html, app.js, styles.css)
-/agents        panel definitions (60), prompt templates, trait jitter
+/app           FastAPI app + the broadsheet dashboard (index.html, app.js, styles.css), renders golden_run.json
+/agents        seed cards (~37) + the jitter expander -> personas.json (60) + prompt-assembly templates
 /sponsors      kimi.py, brightdata.py, daytona.py, videodb.py, sensenova.py (+ terminal3.py add-on)
-/pipeline      creative ingest, grounding (3 buckets), aggregate, fix triage
-/golden        baked golden run JSON + creative manifest + keyframes (the demo replays this)
+/pipeline      creative ingest, grounding (3 buckets), reduce (60 -> dashboard_state), fix triage
+/golden        golden_run.json + creative manifest + keyframes (the demo replays this)
 /fixtures      MerlionTel ad assets, E-Pay/Pepsi text smoke tests, entity-swap, boring control
 /docs          demo script, runbook, sponsor receipts
 ```
 
-## 13. Decisions locked
+## 14. Decisions locked
 
 1. Vertical: **ad / marketing campaign**.
 2. Input: **full creative** (copy + key visual + ad film).
