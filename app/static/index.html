@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Premortem — MerlionTel</title>
+  <title>Premortem</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -14,85 +14,142 @@
 <body>
   <div class="grain" aria-hidden="true"></div>
 
-  <div id="app" class="loading">
-    <!-- MASTHEAD -->
-    <header class="masthead">
-      <div class="nameplate">
-        <span class="wordmark">PREMORTEM</span>
-        <span class="rule-v"></span>
-        <span class="outlet" id="outlet">THE STRAITS STANDARD</span>
-        <span class="sim-tag">SIMULATED</span>
-      </div>
-      <div class="masthead-meta" id="masthead-meta"></div>
-      <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
-    </header>
+  <!-- ============================ STAGE 1: INPUT ============================ -->
+  <main id="input-view" class="view">
+    <div class="iv-inner">
+      <div class="iv-brandline">PREMORTEM <span class="sim-tag">SIMULATED</span></div>
+      <h1 class="iv-title">What are you about to launch?</h1>
+      <p class="iv-sub">Paste a campaign. Sixty grounded Singaporean agents tear it apart, before the public does.</p>
 
-    <!-- ABOVE THE FOLD -->
-    <section class="fold-top">
-      <div class="verdict">
-        <div class="verdict-label">Blast Score</div>
-        <div class="blast">
-          <span class="blast-num" id="blast-num">0</span>
-          <span class="blast-band" id="blast-band"></span>
+      <form id="composer" class="composer" autocomplete="off">
+        <textarea id="iv-text" class="composer-text" rows="3"
+          placeholder="Paste your campaign copy, script, or concept. Or drop in the key visual and the ad film."></textarea>
+        <div id="iv-chips" class="composer-chips"></div>
+        <div class="composer-bar">
+          <div class="composer-tools">
+            <button type="button" class="tool" id="add-image" title="Attach image">＋ Image</button>
+            <button type="button" class="tool" id="add-video" title="Attach video">＋ Video</button>
+            <input type="text" id="iv-brand" class="composer-brand" placeholder="Brand (optional)" />
+          </div>
+          <button type="submit" class="run-btn" id="run-btn" disabled>Run premortem <span class="ra">&uarr;</span></button>
         </div>
-        <div class="heat-meter"><div class="heat-fill" id="heat-fill"></div></div>
-        <div class="verdict-sub">% of the panel that would go public against you</div>
-        <div class="chips">
-          <span class="decision-chip" id="decision-chip">&middot;</span>
-          <span class="panel-count" id="panel-count"></span>
+        <input type="file" id="file-image" accept="image/*" hidden />
+        <input type="file" id="file-video" accept="video/*" hidden />
+      </form>
+
+      <div class="iv-presets">
+        <span class="presets-label">Try</span>
+        <button type="button" class="preset" id="preset-merliontel">MerlionTel &middot; &ldquo;We&rsquo;re Listening&rdquo; ad film</button>
+      </div>
+
+      <div class="iv-foot">Synthetic scenario simulation. Fictional masthead. Not a prediction of public opinion.</div>
+    </div>
+  </main>
+
+  <!-- ======================= STAGE 2: LIVE AGENT RUN ======================= -->
+  <section id="run-view" class="view hidden">
+    <div class="rv-top">
+      <div class="rv-head">
+        <div class="rv-kicker">Convening the Kopitiam Panel</div>
+        <div class="rv-status" id="rv-status">Booting 60 sandboxes&hellip;</div>
+      </div>
+      <div class="rv-metrics">
+        <div class="rv-count" id="rv-count">0 / 60</div>
+        <div class="rv-blast">
+          <span class="rv-blast-num" id="rv-blast">0</span>
+          <span class="rv-blast-label">Blast</span>
         </div>
       </div>
-
-      <figure class="creative" id="creative"></figure>
-
-      <div class="future-headline" id="future-headline"></div>
-    </section>
-
-    <div class="fold-rule"><span>Below the fold &middot; The forensics</span></div>
-
-    <!-- BELOW THE FOLD -->
-    <section class="fold-bottom">
-      <section class="col panel-col">
-        <h2 class="col-title">The Kopitiam Panel <em id="panel-sub"></em></h2>
-        <div class="panel-grid" id="panel-grid"></div>
-        <div class="panel-legend" id="panel-legend"></div>
-      </section>
-
-      <section class="col clusters-col">
-        <h2 class="col-title">Top objections</h2>
-        <div class="clusters" id="clusters"></div>
-      </section>
-
-      <section class="col timeline-col">
-        <h2 class="col-title">Blast map <em>across the 0:30 film</em></h2>
-        <div class="timeline" id="timeline"></div>
-        <div class="timeline-readout" id="timeline-readout"></div>
-      </section>
-    </section>
-
-    <!-- STAKEHOLDERS -->
-    <section class="stakeholders-wrap">
-      <h2 class="col-title">Stakeholder verdicts</h2>
-      <div class="stakeholders" id="stakeholders"></div>
-    </section>
-
-    <!-- FIX -->
-    <section class="fix">
-      <h2 class="col-title">The fix <em>what each tier can and cannot move</em></h2>
-      <div class="fix-steps" id="fix-steps"></div>
-      <div class="fix-cards" id="fix-cards"></div>
-    </section>
-
-    <!-- HEADLINE ARTIFACT -->
-    <section class="headline-artifact">
-      <div class="artifact-head">
-        <h2 class="col-title">Tomorrow's Headline</h2>
-        <button class="toggle" id="page-toggle">Show page 12 &rarr;</button>
+    </div>
+    <div class="rv-body">
+      <div class="rv-grid" id="rv-grid"></div>
+      <div class="rv-feed" id="rv-feed"></div>
+    </div>
+    <div class="rv-foot">
+      <div class="rv-sponsor" id="rv-sponsor"></div>
+      <div class="rv-actions">
+        <button class="skip-btn" id="skip-btn" type="button">skip &rarr;</button>
+        <button class="verdict-btn hidden" id="verdict-btn" type="button">See the verdict &rarr;</button>
       </div>
-      <article class="frontpage" id="frontpage"></article>
-    </section>
+    </div>
+  </section>
 
-    <footer class="foot" id="foot"></footer>
+  <!-- ========================= STAGE 3: DASHBOARD ========================= -->
+  <div id="dashboard-view" class="view hidden">
+    <div id="app">
+      <header class="masthead">
+        <div class="nameplate">
+          <span class="wordmark">PREMORTEM</span>
+          <span class="rule-v"></span>
+          <span class="outlet" id="outlet">THE STRAITS STANDARD</span>
+          <span class="sim-tag">SIMULATED</span>
+        </div>
+        <div class="masthead-meta" id="masthead-meta"></div>
+        <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
+      </header>
+
+      <section class="fold-top">
+        <div class="verdict">
+          <div class="verdict-label">Blast Score</div>
+          <div class="blast">
+            <span class="blast-num" id="blast-num">0</span>
+            <span class="blast-band" id="blast-band"></span>
+          </div>
+          <div class="heat-meter"><div class="heat-fill" id="heat-fill"></div></div>
+          <div class="verdict-sub">% of the panel that would go public against you</div>
+          <div class="chips">
+            <span class="decision-chip" id="decision-chip">&middot;</span>
+            <span class="panel-count" id="panel-count"></span>
+          </div>
+        </div>
+
+        <figure class="creative" id="creative"></figure>
+
+        <div class="future-headline" id="future-headline"></div>
+      </section>
+
+      <div class="fold-rule"><span>Below the fold &middot; The forensics</span></div>
+
+      <section class="fold-bottom">
+        <section class="col panel-col">
+          <h2 class="col-title">The Kopitiam Panel <em id="panel-sub"></em></h2>
+          <div class="panel-grid" id="panel-grid"></div>
+          <div class="panel-legend" id="panel-legend"></div>
+        </section>
+
+        <section class="col clusters-col">
+          <h2 class="col-title">Top objections</h2>
+          <div class="clusters" id="clusters"></div>
+        </section>
+
+        <section class="col timeline-col">
+          <h2 class="col-title">Blast map <em>across the 0:30 film</em></h2>
+          <div class="timeline" id="timeline"></div>
+          <div class="timeline-readout" id="timeline-readout"></div>
+        </section>
+      </section>
+
+      <section class="stakeholders-wrap">
+        <h2 class="col-title">Stakeholder verdicts</h2>
+        <div class="stakeholders" id="stakeholders"></div>
+      </section>
+
+      <section class="fix">
+        <h2 class="col-title">The fix <em>what each tier can and cannot move</em></h2>
+        <div class="fix-steps" id="fix-steps"></div>
+        <div class="fix-cards" id="fix-cards"></div>
+      </section>
+
+      <section class="headline-artifact">
+        <div class="artifact-head">
+          <h2 class="col-title">Tomorrow's Headline</h2>
+          <button class="toggle" id="page-toggle">Show page 12 &rarr;</button>
+        </div>
+        <article class="frontpage" id="frontpage"></article>
+      </section>
+
+      <footer class="foot" id="foot"></footer>
+    </div>
   </div>
 
   <!-- quote card popover -->

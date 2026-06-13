@@ -254,19 +254,154 @@ function openQuote(r) {
 }
 function closeQuote() { $("quote-card").classList.add("hidden"); }
 
-// ---- boot ------------------------------------------------------------------
-async function boot() {
-  let d;
+// ---- views -----------------------------------------------------------------
+function showView(id) {
+  for (const v of document.querySelectorAll(".view")) v.classList.toggle("hidden", v.id !== id);
+  window.scrollTo(0, 0);
+}
+
+// ---- stage 1: input --------------------------------------------------------
+function setupInput() {
+  const text = $("iv-text"), brand = $("iv-brand"), runBtn = $("run-btn"), chips = $("iv-chips");
+  const attachments = [];
+
+  const refresh = () => { runBtn.disabled = !(text.value.trim() || attachments.length); };
+
+  function renderChips() {
+    chips.replaceChildren(...attachments.map((a, i) =>
+      el("span", { class: "chip " + a.kind },
+        a.kind === "image" && a.url !== "#"
+          ? el("img", { class: "chip-thumb", src: a.url, alt: "" })
+          : el("span", { class: "chip-ico" }, a.kind === "video" ? "🎬" : "🖼"),
+        el("span", { class: "chip-name" }, a.name),
+        el("button", {
+          class: "chip-x", type: "button",
+          onclick: () => { attachments.splice(i, 1); renderChips(); refresh(); },
+        }, "×"))));
+  }
+
+  function addFile(file, kind) {
+    if (!file) return;
+    attachments.push({ kind, name: file.name, url: URL.createObjectURL(file) });
+    renderChips(); refresh();
+  }
+
+  text.addEventListener("input", refresh);
+  $("add-image").addEventListener("click", () => $("file-image").click());
+  $("add-video").addEventListener("click", () => $("file-video").click());
+  $("file-image").addEventListener("change", (e) => addFile(e.target.files[0], "image"));
+  $("file-video").addEventListener("change", (e) => addFile(e.target.files[0], "video"));
+
+  const composer = $("composer");
+  ["dragover", "dragenter"].forEach((ev) =>
+    composer.addEventListener(ev, (e) => { e.preventDefault(); composer.classList.add("drag"); }));
+  ["dragleave", "drop"].forEach((ev) =>
+    composer.addEventListener(ev, (e) => { e.preventDefault(); composer.classList.remove("drag"); }));
+  composer.addEventListener("drop", (e) => {
+    for (const f of e.dataTransfer.files) addFile(f, f.type.startsWith("video") ? "video" : "image");
+  });
+
+  $("preset-merliontel").addEventListener("click", () => {
+    text.value =
+      'MerlionTel "We\'re Listening" launch film. An AI that listens to your phone calls to ' +
+      'personalise the ads you see. 30-second spot: "We hear you... our new AI listens to your ' +
+      'calls... ads made for you... for every Singaporean... we\'re listening, for you."';
+    brand.value = "MerlionTel";
+    attachments.length = 0;
+    attachments.push({ kind: "video", name: "merliontel_were_listening_30s.mp4", url: "#" });
+    renderChips(); refresh();
+    runBtn.focus();
+  });
+
+  composer.addEventListener("submit", (e) => { e.preventDefault(); if (!runBtn.disabled) startRun(); });
+  refresh();
+}
+
+// ---- stage 2: live agent run -----------------------------------------------
+let DATA = null;
+let swarmTimers = [];
+
+async function startRun() {
+  showView("run-view");
+  $("rv-status").textContent = "Booting 60 sandboxes…";
+  $("verdict-btn").classList.add("hidden");
   try {
     const res = await fetch("/api/golden");
     if (!res.ok) throw new Error("HTTP " + res.status);
-    d = await res.json();
+    DATA = await res.json();
   } catch (err) {
-    document.body.innerHTML =
-      `<div style="padding:40px;font-family:monospace;color:#F3EFE3">` +
-      `Could not load /api/golden (${err}).<br>Run: <b>uvicorn app.main:app</b> from the repo root, then open this page.</div>`;
+    $("rv-status").textContent = "Could not load /api/golden (" + err + ")";
     return;
   }
+  playSwarm(DATA);
+}
+
+function playSwarm(d) {
+  const grid = $("rv-grid"), feed = $("rv-feed");
+  grid.replaceChildren(); feed.replaceChildren();
+  $("rv-blast").textContent = "0";
+  swarmTimers.forEach(clearTimeout); swarmTimers = [];
+
+  const reactions = d.reactions;
+  const N = reactions.length;
+  const finalBlast = d.aggregate.blast_score;
+  const finalResp = d.aggregate.responders;
+  const SPONSORS = ["Kimi K2.6 reasoning", "Bright Data grounding", "Daytona sandboxed", "VideoDB scene-aware"];
+
+  const tiles = reactions.map((r) => {
+    const t = el("div", { class: `rv-tile ${r.kind}`, title: r.label }, r.emoji);
+    grid.append(t);
+    return t;
+  });
+
+  let responded = 0;
+  const STEP = 78;
+  reactions.forEach((r, i) => {
+    const timer = setTimeout(() => {
+      const abst = r.status === "abstain";
+      const tile = tiles[i];
+      tile.classList.add("on");
+      if (abst) tile.classList.add("abstain");
+      else tile.style.background = heatSeverity(r.severity);
+
+      if (!abst) {
+        responded++;
+        feed.prepend(el("div", { class: "feed-item sev" + r.severity },
+          el("span", { class: "fi-emoji" }, r.emoji),
+          el("div", { class: "fi-body" },
+            el("div", { class: "fi-label" }, r.label),
+            el("div", { class: "fi-quote" }, "“" + r.quote + "”"))));
+        while (feed.children.length > 7) feed.lastChild.remove();
+      }
+
+      $("rv-count").textContent = `${responded} / ${N}`;
+      $("rv-blast").textContent = Math.round(finalBlast * Math.min(1, responded / finalResp));
+      $("rv-status").textContent = "Agents reacting live…";
+      $("rv-sponsor").textContent = SPONSORS[i % SPONSORS.length];
+
+      if (i === N - 1) finishSwarm(d);
+    }, 450 + i * STEP);
+    swarmTimers.push(timer);
+  });
+}
+
+function finishSwarm(d) {
+  $("rv-status").textContent = "Verdict ready";
+  $("rv-blast").textContent = d.aggregate.blast_score;
+  $("verdict-btn").classList.remove("hidden");
+  const auto = setTimeout(() => showDashboard(d), 1500);
+  swarmTimers.push(auto);
+  $("verdict-btn").onclick = () => { clearTimeout(auto); showDashboard(d); };
+}
+
+// ---- stage 3: dashboard ----------------------------------------------------
+function showDashboard(d) {
+  swarmTimers.forEach(clearTimeout); swarmTimers = [];
+  showView("dashboard-view");
+  renderDashboard(d);
+}
+
+function renderDashboard(d) {
   document.title = `Premortem — ${d.scenario.brand}`;
   renderMasthead(d);
   renderBlast(d);
@@ -283,17 +418,24 @@ async function boot() {
     el("span", {}, "Premortem · Agent Forge AI Hackathon 2026"),
     el("span", {}, "All reactions are synthetic. Fictional masthead. Not a prediction."),
   );
-
-  $("page-toggle").addEventListener("click", () => {
+  $("page-toggle").onclick = () => {
     page12 = !page12;
     $("page-toggle").innerHTML = page12 ? "Show front page &rarr;" : "Show page 12 &rarr;";
     renderFrontpage(d);
-  });
+  };
+}
+
+// ---- boot ------------------------------------------------------------------
+function boot() {
   $("qc-close").addEventListener("click", closeQuote);
   $("quote-card").addEventListener("click", (e) => { if (e.target.id === "quote-card") closeQuote(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeQuote(); });
 
-  $("app").classList.remove("loading");
+  const skip = $("skip-btn");
+  if (skip) skip.addEventListener("click", () => { if (DATA) showDashboard(DATA); });
+
+  setupInput();
+  showView("input-view");
 }
 
 document.addEventListener("DOMContentLoaded", boot);
