@@ -1,7 +1,8 @@
 # Premortem: Ad-Campaign Edition
 
 > Paste a campaign (copy + key visual + ad film). 60 grounded Singaporean AI agents,
-> each isolated in its own Daytona sandbox and self-grounded in this week's live discourse,
+> each isolated in its own Daytona sandbox, self-calibrated to this week's market mood
+> and self-grounded in live discourse,
 > tear it apart in a baked 90-second run. You get a **Blast Score**, a **timeline blast map**
 > (which second of the film detonated the panel), tomorrow's fictional front page, and a
 > **3-tier fix triage** that separates what a rewrite can save, from what needs a re-shoot,
@@ -53,7 +54,9 @@ FIX TRIAGE (3 tiers) -> two-stage re-sim -> measured delta
 ```
 
 **Why each agent is sandboxed (defensible, not theater):** each agent self-grounds in untrusted
-public text (r/singapore, news), which is a prompt-injection vector. Daytona contains the blast
+public text (r/singapore, news), which is a prompt-injection vector -- and that untrusted scrape now
+shapes the agent's **identity** (its calibration / current mood, see 4.1), not just its citations, so an
+escaped injection could puppet the *character*, not merely a quote. Daytona contains that larger blast
 radius **per agent**, so live grounding becomes 60 isolated sandboxes instead of 60 injection paths.
 The Kimi orchestrator stays on the **trusted host**: it only ever touches the structured manifest and
 the already-validated reaction JSONs, never raw public text, so the isolation boundary maps exactly to
@@ -122,12 +125,26 @@ so the golden run is reproducible and cache-stable:
 `auntie -> {auntie_1 age60/pessimist, auntie_2 age68/mid, auntie_3 age72/low-tech}`.
 Output: `personas.json`, 60 concrete records.
 
+**Calibration -- the mood layer (this is the market-data step).** The seed fixes the *archetype*;
+calibration tunes it to *this week*. During the offline bake, each sandbox scrapes a **broad ambient**
+Singaporean consumer-discourse signal (what's trending, the emotional temperature) and derives a
+`calibration` vector that adjusts salience weights **only** on the seed's pre-declared `concern_axes`,
+**clamped to the seed's `jitter` ranges**. It never free-text rewrites the persona: worst case an
+injection nudges a slider, it cannot hijack the character, and the anti-stereotype rule is untouched.
+So the same `toa_payoh_auntie` runs privacy-hot in a week of scam headlines, milder in a quiet one.
+The ambient calibration query is **kept separate from** the campaign-specific evidence grounding
+(sections 4 / 7), so agents are never tuned to be triggered by exactly what they are then shown --
+that separation is what keeps the Blast Score honest (the anti-Goodhart guard). The calibration is
+**snapshotted into `personas.json` at bake time** (with the `evidence_id`s that moved each weight), so
+the golden run stays frozen and reproducible: "re-bake any Monday and the panel re-tunes itself."
+
 **Run-time: each record -> one sandboxed, self-grounding Kimi call,** assembled as:
 - **SHARED PREFIX (identical for all 60 -> prefix-cache hit):** task + severity rubric (0-3) + JSON
   schema + the creative manifest (copy + keyframes + transcript + `[scene@t]` indices) + fence rules
   + SIMULATED framing. The big creative payload is cached ONCE, not 60x.
-- **PER-AGENT BLOCK (the only varying part):** the agent's persona card + its own Bright Data
-  grounding pack (quote-fenced), executed inside the agent's Daytona sandbox.
+- **PER-AGENT BLOCK (the only varying part):** the agent's persona card + **its clamped calibration
+  vector (current salience weights)** + its own Bright Data grounding pack (quote-fenced), executed
+  inside the agent's Daytona sandbox.
 
 That split is why 60 agents is affordable: the expensive context is one cached prefix; only a small
 persona+grounding block differs per agent. Seeds are hand-written (highest-leverage content work) and
@@ -174,14 +191,18 @@ residual 28 is the premise, that is your call." This is also the clean kill for 
   "fix_tier": "copy|production|decision",
   "would_share": {"yes": true, "where": "whatsapp"},
   "evidence_id": "gp_reddit_014 | null",                  // self-grounded, injection-fenced
+  "calibration": {"privacy": 0.8, "price": 0.4},          // mood weights, clamped to seed jitter range
+  "calibration_evidence_ids": ["mood_reddit_007"],        // ambient signal that moved each weight
   "sandbox_id": "dt_a17", "question": "one press-conference question" }
 
 // orchestrator plan (Kimi, trusted host) — receipt + reproducibility
 { "panel_plan": {
     "planner": "kimi-k2.6", "n_agents": 60,
     "blocks": {"personas": 35, "lenses": 15, "stakeholders": 10},
+    // calibration is mood-only (never the objection); ambient calibration query != campaign evidence query
     "assignments": [ {"agent_id": "auntie_1", "kind": "persona",
                       "traits": {"age": 58, "race": "chinese", "income": "low", "subculture": "..."},
+                      "calibration": {"privacy": 0.8}, "calibration_evidence_ids": ["mood_reddit_007"],
                       "trait_jitter_seed": 1734, "sandbox_id": "dt_a17"} /* x60 */ ] } }
 
 // golden run (the single artifact the stage replays AND the dashboard renders)
@@ -310,7 +331,7 @@ current rung.
 | **0 = CUT B (sacred)** | replay harness + report UI driven by a golden JSON (hand-authored if needed) | a demo exists no matter what |
 | 1 | real Kimi panel, copy-only, 60 agents async + prefix cache -> real text-tier golden JSON + Blast Score + clusters | robust demo from real reactions |
 | 2 (hero) | VideoDB ingest of the MerlionTel film -> manifest; multimodal reactions with `trigger_moments`; timeline scrubber; SenseNova front page; two-stage fix | the full-creative wow |
-| 3 (production story) | wrap agent in Daytona sandbox + self-grounding; run 60 sandboxed agents ONCE to bake the authentic golden run + capture transcripts | Daytona core + injection story real |
+| 3 (production story) | wrap agent in Daytona sandbox + self-grounding **+ ambient calibration (the mood layer, 4.1)**; run 60 sandboxed agents ONCE to bake the authentic golden run + capture transcripts | Daytona core + injection story real; calibration is the payoff that justifies sandboxing over trusted-host fan-out (fallback: deterministic jitter from Rungs 0-2) |
 | 4 (booth, post-demo) | general "paste your own ad" live path | product, not just a video |
 
 **Timeline (hacking 11:30 to 16:30):**
@@ -372,7 +393,7 @@ through **VideoDB**, reasoning on **Kimi K2.6**, scandal frame by **SenseNova**.
 /app           FastAPI app + the broadsheet dashboard (index.html, app.js, styles.css), renders golden_run.json
 /agents        seed cards (~37) + the jitter expander -> personas.json (60) + prompt-assembly templates
 /sponsors      kimi.py, brightdata.py, daytona.py, videodb.py, sensenova.py (+ terminal3.py add-on)
-/pipeline      creative ingest, orchestrator (plans + dispatches panel), grounding (3 buckets), reduce (60 -> dashboard_state), fix triage
+/pipeline      creative ingest, orchestrator (plans + dispatches panel), ambient calibration (mood layer), grounding (3 buckets), reduce (60 -> dashboard_state), fix triage
 /golden        golden_run.json + creative manifest + keyframes (the demo replays this)
 /fixtures      MerlionTel ad assets, E-Pay/Pepsi text smoke tests, entity-swap, boring control
 /docs          demo script, runbook, sponsor receipts
@@ -389,3 +410,8 @@ through **VideoDB**, reasoning on **Kimi K2.6**, scandal frame by **SenseNova**.
 7. Golden-run brand: **MerlionTel** (fictional).
 8. Terminal 3: **conditional add-on** (only if ahead of CUT B).
 9. Live N: **decided by the 11:35 Kimi burst + Daytona spin-up test.**
+10. **Persona calibration (the mood layer):** scraped *ambient* market signal tunes each archetype via
+    **clamped salience weights** (never free-text), so injection can nudge a slider but not hijack the
+    character. The ambient calibration query is **separate from** the campaign evidence grounding
+    (anti-Goodhart guard). Calibration lives in **Rung 3**, snapshotted into `personas.json`, with
+    deterministic jitter (Rungs 0-2) as the fallback.
