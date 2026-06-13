@@ -29,6 +29,14 @@ INPUT: campaign copy + key visual + ad film + brand/category
    -> manifest: {scene_id, t_start, t_end, keyframe, visual_desc, transcript, on_screen_text}
         |
         v
+[Kimi K2.6 ORCHESTRATOR] plans + dispatches the panel (one brain, fan-out)
+   runs on the TRUSTED HOST (not sandboxed): handles no untrusted public text,
+   so it sits outside the injection-containment boundary by design
+   -> reads manifest, selects/assigns the 60 agents (personas/lenses/stakeholders),
+      applies trait jitter, builds per-agent prompts, dispatches to sandboxes,
+      collects + validates the 60 reactions, hands off to AGGREGATE
+        |
+        v
 [Daytona] 60 sandboxes, one per agent (baked offline, receipts captured)
    each sandbox:  [Bright Data] self-ground (3 buckets, injection-fenced)
                   [Kimi K2.6 multimodal] react to copy + keyframes + transcript + its grounding
@@ -47,6 +55,9 @@ FIX TRIAGE (3 tiers) -> two-stage re-sim -> measured delta
 **Why each agent is sandboxed (defensible, not theater):** each agent self-grounds in untrusted
 public text (r/singapore, news), which is a prompt-injection vector. Daytona contains the blast
 radius **per agent**, so live grounding becomes 60 isolated sandboxes instead of 60 injection paths.
+The Kimi orchestrator stays on the **trusted host**: it only ever touches the structured manifest and
+the already-validated reaction JSONs, never raw public text, so the isolation boundary maps exactly to
+where untrusted input enters the system.
 Honest caveat: sandboxing is isolation, not intelligence, and 60 cold-starts is a stage killer, so
 the 60 sandboxed agents run **once in the morning** to bake the golden run.
 
@@ -54,7 +65,7 @@ the 60 sandboxed agents run **once in the morning** to bake the golden run.
 
 | Tool | Role | Depth | Bakes golden run by |
 |------|------|-------|---------------------|
-| **Kimi K2.6** | 60-agent multimodal panel (fan-out, prefix cache, JSON mode, sees keyframes) | CORE | reacting to copy + keyframes + transcript |
+| **Kimi K2.6** | orchestrator (plans + dispatches panel) + 60-agent multimodal panel (fan-out, prefix cache, JSON mode, sees keyframes) | CORE | orchestrating the panel, then reacting to copy + keyframes + transcript |
 | **Bright Data** | per-agent self-grounding, 3 buckets, injection-fenced | CORE | landmine radar / brand baggage / comparable-campaign graveyard |
 | **Daytona** | per-agent sandbox isolation (injection containment) + pipeline execution | CORE | running the 60 agents once, transcripts = receipts |
 | **VideoDB** | creative ingestion: transcript, OCR, scenes, keyframes, timestamps | CORE | ingesting the one golden ad film |
@@ -165,8 +176,17 @@ residual 28 is the premise, that is your call." This is also the clean kill for 
   "evidence_id": "gp_reddit_014 | null",                  // self-grounded, injection-fenced
   "sandbox_id": "dt_a17", "question": "one press-conference question" }
 
+// orchestrator plan (Kimi, trusted host) — receipt + reproducibility
+{ "panel_plan": {
+    "planner": "kimi-k2.6", "n_agents": 60,
+    "blocks": {"personas": 35, "lenses": 15, "stakeholders": 10},
+    "assignments": [ {"agent_id": "auntie_1", "kind": "persona",
+                      "traits": {"age": 58, "race": "chinese", "income": "low", "subculture": "..."},
+                      "trait_jitter_seed": 1734, "sandbox_id": "dt_a17"} /* x60 */ ] } }
+
 // golden run (the single artifact the stage replays AND the dashboard renders)
 { "run_id": "...", "creative_manifest": [ /* ... */ ], "grounding_packs": { /* ... */ },
+  "panel_plan": { /* orchestrator assignments + trait jitter, see above */ },
   "reactions": [ /* 60 */ ],
   "aggregate": {"blast_score": 84, "clusters": [], "timeline_heatmap": [], "stability": "84 +/- 3"},
   "artifacts": {"front_page_html": "...", "keyframe_img": "..."},
@@ -352,7 +372,7 @@ through **VideoDB**, reasoning on **Kimi K2.6**, scandal frame by **SenseNova**.
 /app           FastAPI app + the broadsheet dashboard (index.html, app.js, styles.css), renders golden_run.json
 /agents        seed cards (~37) + the jitter expander -> personas.json (60) + prompt-assembly templates
 /sponsors      kimi.py, brightdata.py, daytona.py, videodb.py, sensenova.py (+ terminal3.py add-on)
-/pipeline      creative ingest, grounding (3 buckets), reduce (60 -> dashboard_state), fix triage
+/pipeline      creative ingest, orchestrator (plans + dispatches panel), grounding (3 buckets), reduce (60 -> dashboard_state), fix triage
 /golden        golden_run.json + creative manifest + keyframes (the demo replays this)
 /fixtures      MerlionTel ad assets, E-Pay/Pepsi text smoke tests, entity-swap, boring control
 /docs          demo script, runbook, sponsor receipts
