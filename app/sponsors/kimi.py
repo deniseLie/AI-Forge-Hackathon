@@ -19,6 +19,47 @@ MODEL = os.environ.get("KIMI_MODEL", "moonshot-v1-8k")
 CONCURRENCY = int(os.environ.get("KIMI_CONCURRENCY", "16"))
 MAX_TOKENS = int(os.environ.get("KIMI_MAX_TOKENS", "400"))
 
+# Fixed objection taxonomy so reactions cluster (free-form categories fragment the dashboard).
+CATEGORIES = [
+    "privacy", "surveillance", "data_ethics", "pdpa", "race_representation",
+    "cultural_appropriation", "tone_deaf", "misleading_claims", "pricing", "affordability",
+    "labor", "safety", "health", "environment", "gender", "religious", "accessibility",
+    "ageism", "lgbtq", "child_safety", "trust", "other",
+]
+
+# Map free-form model categories onto the fixed taxonomy so the dashboard clusters cleanly.
+_SYNONYM = {
+    "privacy": "privacy", "surveil": "surveillance", "listen": "surveillance", "record": "surveillance",
+    "data": "data_ethics", "pdpa": "pdpa", "consent": "pdpa",
+    "represent": "race_representation", "race": "race_representation", "cmio": "race_representation",
+    "discrimin": "race_representation", "stereotyp": "race_representation", "exclus": "race_representation",
+    "divers": "race_representation", "minorit": "race_representation",
+    "cultur": "cultural_appropriation", "appropriat": "cultural_appropriation",
+    "tone": "tone_deaf", "insensit": "tone_deaf",
+    "mislead": "misleading_claims", "unsubstan": "misleading_claims", "false": "misleading_claims",
+    "pric": "pricing", "afford": "affordability", "cost": "affordability",
+    "labour": "labor", "labor": "labor", "work": "labor", "shift": "labor", "exploit": "labor",
+    "wage": "labor", "hustle": "labor", "overwork": "labor",
+    "safe": "safety", "health": "health", "environ": "environment", "green": "environment",
+    "gender": "gender", "sexis": "gender", "misogyn": "gender",
+    "relig": "religious", "halal": "religious",
+    "access": "accessibility", "disab": "disability",
+    "ageis": "ageism", "elder": "ageism", "older": "ageism",
+    "lgbt": "lgbtq", "queer": "lgbtq", "child": "child_safety",
+    "trust": "trust", "reput": "trust",
+}
+
+
+def _categorize(raw):
+    s = (raw or "").strip().lower()
+    norm = s.replace(" ", "_").replace("/", "_").replace("&", "_")
+    if norm in CATEGORIES:
+        return norm
+    for kw, cat in _SYNONYM.items():
+        if kw in s:
+            return cat
+    return "other"
+
 
 def build_shared_prefix(scenario, creative):
     """Identical for all 60 agents -> prefix-cache hit. Task + rubric + schema + creative manifest."""
@@ -33,10 +74,13 @@ def build_shared_prefix(scenario, creative):
         f"CREATIVE (scene index):\n{scenes}\n\n"
         "Severity rubric (0-3): 0 = fine, 1 = mild unease, 2 = would raise a serious objection, "
         "3 = would go public / boycott / drive negative coverage.\n"
-        "fix_tier: 'copy' (wording-fixable), 'production' (casting/imagery/music, unfixable by wording), "
-        "'decision' (the concept itself).\n\n"
+        "fix_tier (HOW to fix it): 'copy' (wording-fixable), 'production' (casting/imagery/music, "
+        "unfixable by wording), 'decision' (the concept itself).\n"
+        f"objection_category (WHAT the concern is, a DIFFERENT axis from fix_tier) = pick exactly one "
+        f"word from: {', '.join(CATEGORIES)}.\n\n"
         "Reply ONLY as compact JSON: {\"sentiment\": -2..1, \"severity\": 0..3, "
-        "\"objection_category\": str, \"quote\": str (ONE sentence in this panellist's voice), "
+        "\"objection_category\": \"<one word from the category list>\", "
+        "\"quote\": str (ONE sentence in this panellist's voice), "
         "\"fix_tier\": \"copy|production|decision\", \"trigger_moments\": [scene_id,...], "
         "\"question\": str (one press-conference question)}.\n"
         "This is a SIMULATED internal exercise. Never invent real names, real outlets, or opinion "
@@ -86,7 +130,7 @@ def build_agent_block(agent):
 
 def _merge(agent, data, scene_t):
     sev = max(0, min(3, int(data.get("severity", agent.get("severity", 0)))))
-    cat = data.get("objection_category") or agent.get("objection_category", "other")
+    cat = _categorize(data.get("objection_category"))
     raw_moments = data.get("trigger_moments") or []
     moments = [{"scene_id": s, "t": scene_t.get(s, 0)} for s in raw_moments if isinstance(s, str) and s in scene_t]
     return {

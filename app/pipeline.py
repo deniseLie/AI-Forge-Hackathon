@@ -11,6 +11,10 @@ CAT_LABEL = {
     "trust": "TRUST / CLAIMS", "child_safety": "CHILD DATA", "accessibility": "ACCESSIBILITY",
     "religious": "RELIGIOUS", "gender": "GENDER / SAFETY", "low_income": "AFFORDABILITY",
     "ageism": "AGEISM", "disability": "DISABILITY", "lgbtq": "INCLUSION",
+    "data_ethics": "DATA ETHICS", "cultural_appropriation": "CULTURAL APPROPRIATION",
+    "misleading_claims": "MISLEADING CLAIMS", "affordability": "AFFORDABILITY",
+    "labor": "LABOUR / CONDITIONS", "safety": "SAFETY", "health": "HEALTH",
+    "environment": "ENVIRONMENT", "other": "OTHER",
 }
 
 
