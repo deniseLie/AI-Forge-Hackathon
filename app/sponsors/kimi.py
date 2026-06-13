@@ -68,10 +68,10 @@ def build_shared_prefix(scenario, creative):
         for s in creative
     )
     return (
-        f"You simulate ONE member of a Singaporean public-reaction panel red-teaming an unlaunched ad "
-        f"campaign for {scenario['brand']} ({scenario['category']}), before it airs.\n\n"
-        f"CAMPAIGN: {scenario['campaign']}\n"
-        f"CREATIVE (scene index):\n{scenes}\n\n"
+        f"You simulate ONE member of a global public-and-press reaction panel red-teaming an unlaunched "
+        f"product launch / announcement by {scenario['brand']} ({scenario['category']}), before it ships.\n\n"
+        f"LAUNCH: {scenario['campaign']}\n"
+        f"ANNOUNCEMENT (segment index):\n{scenes}\n\n"
         "Severity rubric (0-3): 0 = fine, 1 = mild unease, 2 = would raise a serious objection, "
         "3 = would go public / boycott / drive negative coverage.\n"
         "fix_tier (HOW to fix it): 'copy' (wording-fixable), 'production' (casting/imagery/music, "
@@ -88,18 +88,18 @@ def build_shared_prefix(scenario, creative):
     )
 
 
-# Voice hints so persona quotes sound naturally Singaporean, not generic English.
+# Voice hints so persona quotes sound distinct, not generic. Keyed by archetype.
 REGISTER = {
-    "auntie": "heartland Singlish, WhatsApp-forward cadence (aiyoh, lah, ah), wary of new tech",
-    "poly": "Gen-Z Singlish, online/meme register (bro, sia, siao)",
-    "techbro": "HardwareZone / EDMW forum register, technical and a bit cynical",
-    "parents": "anxious young-parent Singlish, child-safety first",
-    "gig": "tired gig-worker Singlish, cost-of-living frustration",
-    "finance": "polished corporate Singaporean English, risk and reputation framing",
-    "activist": "Gen-Z activist English, digital-rights vocabulary",
-    "influencer": "chronically-online influencer English, ratio/clip register",
-    "towkay": "older heartland SME Singlish, practical (cannot lah, like that how)",
-    "pmet": "mid-career PMET Singaporean English, change-fatigue and job anxiety",
+    "privacy_hawk": "skeptical privacy power-user, GDPR-aware, threat-models everything",
+    "senior": "plain-spoken older user, anxious about new tech and scams",
+    "genz_creator": "chronically-online Gen-Z creator, enthusiastic but media-literate",
+    "parent": "protective parent of young kids, child-safety first",
+    "itadmin": "enterprise IT/security admin, dry compliance-and-risk register",
+    "indiedev": "pragmatic indie developer, wary of platform lock-in",
+    "knowledgeworker": "anxious knowledge worker, job-security framing",
+    "mainstream": "casual mainstream user, convenience-first, low concern",
+    "secresearcher": "precise security researcher, exploit-minded",
+    "exgoogler": "measured industry insider, knows the machine, weary",
 }
 
 
@@ -118,7 +118,7 @@ def build_agent_block(agent):
         voice = "Speak in the FIRST person, in character."
         reg = REGISTER.get(_base(agent.get("agent_id", "")))
         if reg:
-            voice += f" Voice/register: {reg}. Make the quote sound naturally Singaporean, not generic English."
+            voice += f" Voice/register: {reg}. Make the quote sound like this specific person, not generic English."
     else:
         voice = "Report a THIRD-person risk finding. Do NOT roleplay an identity in the first person."
     return (

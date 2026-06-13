@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0C10; --ink2:#15171d; --paper:#F3EFE3; --muted:#8C8A82;
+    --rule:rgba(243,239,227,0.18); --rule2:rgba(243,239,227,0.42);
+    --rising:#E8A317; --severe:#F5402C; --calm:#2E4A45;
+    --serif:'Newsreader',Georgia,serif; --mono:'IBM Plex Mono',monospace; --black:'UnifrakturCook',serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{width:720pt;height:405pt;overflow:hidden;position:relative;background:var(--ink);color:var(--paper);font-family:var(--serif);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;padding:14pt 30pt 16pt;}
+  .mh{display:flex;justify-content:space-between;align-items:baseline;}
+  .mh .name{font-family:var(--black);font-size:15pt;}
+  .mh .meta{font-family:var(--mono);font-size:7.5pt;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+  .doublerule{border-top:2pt solid var(--rule2);border-bottom:1pt solid var(--rule2);height:3pt;margin:7pt 0 0;}
+  .kicker{font-family:var(--mono);font-size:8pt;letter-spacing:0.2em;text-transform:uppercase;color:var(--rising);margin:11pt 0 2pt;}
+  .lead{font-family:var(--serif);font-weight:700;font-size:22pt;line-height:1.05;letter-spacing:-0.01em;}
+  .lead em{font-style:italic;color:var(--severe);font-weight:700;}
+  /* pipeline */
+  .flow{display:flex;align-items:stretch;gap:0;margin-top:16pt;}
+  .node{flex:1;border:1pt solid var(--rule2);padding:9pt 9pt 10pt;display:flex;flex-direction:column;min-height:88pt;}
+  .node .tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:0.12em;text-transform:uppercase;color:var(--rising);}
+  .node h3{font-family:var(--serif);font-weight:700;font-size:14pt;line-height:1.04;margin-top:6pt;}
+  .node p{font-family:var(--serif);font-size:10pt;line-height:1.32;color:#CFC9BB;margin-top:6pt;}
+  .arrow{display:flex;align-items:center;justify-content:center;width:20pt;font-family:var(--mono);font-size:13pt;color:var(--muted);flex:none;}
+  .fenced{border:1.5pt dashed var(--severe);background:rgba(245,64,44,0.06);position:relative;}
+  .fenced .fencetag{position:absolute;top:-7pt;left:8pt;background:var(--ink);padding:0 5pt;font-family:var(--mono);font-size:6.5pt;letter-spacing:0.1em;text-transform:uppercase;color:var(--severe);}
+  .fenced .tag{color:var(--severe);}
+  /* callouts */
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:18pt;margin-top:14pt;padding-top:11pt;border-top:1pt solid var(--rule);}
+  .note{font-family:var(--serif);font-size:10.5pt;line-height:1.42;color:#D6D1C3;}
+  .note b{color:var(--paper);font-weight:700;}
+  .note .h{font-family:var(--mono);font-size:7.5pt;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4pt;}
+  .chip{display:inline-block;font-family:var(--mono);font-size:8pt;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);background:var(--rising);padding:2.5pt 7pt;margin-top:5pt;}
+</style>
+</head>
+<body>
+  <header>
+    <div class="mh"><span class="name">The Straits Standard</span><span class="meta">SIMULATED &middot; The Pipeline &middot; 13 Jun</span></div>
+    <div class="doublerule"></div>
+    <p class="kicker">How It Works &mdash; Section C</p>
+    <h1 class="lead">Untrusted text enters <em>only</em> inside the sandboxes.</h1>
+  </header>
+
+  <div class="flow">
+    <div class="node"><span class="tag">Input</span><h3>Campaign</h3><p>copy &middot; key visual &middot; ad film</p></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node"><span class="tag">VideoDB</span><h3>Ingest</h3><p>scenes &middot; keyframes &middot; transcript</p></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node"><span class="tag">Kimi K2.6</span><h3>Orchestrate</h3><p>trusted host &mdash; plans &amp; dispatches the panel</p></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node fenced"><span class="fencetag">Injection&#8209;containment boundary</span><span class="tag">Daytona &times;60</span><h3>Sandboxed panel</h3><p>each: Bright&nbsp;Data ground + Kimi react</p></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node"><span class="tag">Reduce</span><h3>Dashboard</h3><p>Blast Score &middot; map &middot; triage</p></div>
+  </div>
+
+  <div class="notes">
+    <p class="note"><span class="h">Why per&#8209;agent sandboxes</span>Each agent self&#8209;grounds in untrusted public text &mdash; a prompt&#8209;injection vector that shapes its <b>identity</b>, not just its quotes. Daytona contains that blast radius <b>per agent</b>, so the isolation boundary maps exactly to where untrusted input enters.</p>
+    <p class="note"><span class="h">Built real, demoed baked</span>The orchestrator only ever touches structured manifests and validated JSON &mdash; never raw public text. Sixty cold&#8209;starts is a stage killer, so the panel runs once in the morning, with receipts.<span class="chip">Baked once offline &middot; replayed live</span></p>
+  </div>
+</body>
+</html>

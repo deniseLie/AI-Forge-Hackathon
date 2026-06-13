@@ -25,7 +25,7 @@ def _scenes_from_text(campaign: str):
 
 
 def _roster(golden):
-    """Reuse identity (agent_id/kind/label) but drop the baked reaction + MerlionTel grounding."""
+    """Reuse identity (agent_id/kind/label) but drop the baked reaction + grounding."""
     roster = []
     for r in golden["reactions"]:
         roster.append({
@@ -41,13 +41,13 @@ def _headline(brand, clusters):
     top = clusters[0] if clusters else {"label": "PUBLIC", "pct": 0}
     label = top["label"].title()
     return {
-        "masthead": "THE STRAITS STANDARD", "dateline": "SINGAPORE · TOMORROW",
-        "title": f"{brand}’s Campaign Sparks {label} Backlash",
-        "subtitle": f"A simulated Singaporean public panel flags {label.lower()} concerns within hours of the campaign",
+        "masthead": "THE SIGNAL", "dateline": "TOMORROW",
+        "title": f"{brand}’s Launch Sparks {label} Backlash",
+        "subtitle": f"A simulated global public-and-press panel flags {label.lower()} concerns within hours of the announcement",
         "byline": "By Staff Correspondent",
-        "body": f"{brand} faced swift criticism after its campaign, with a large share of a simulated public panel raising {label.lower()} and related concerns.",
-        "page12_title": f"{brand} revises campaign; analysts shrug",
-        "page12_body": "A revised, lower-key version of the campaign drew little attention.",
+        "body": f"{brand} faced swift criticism after its announcement, with a large share of a simulated public-and-press panel raising {label.lower()} and related concerns.",
+        "page12_title": f"{brand} revises the launch; analysts shrug",
+        "page12_body": "A revised, lower-key version of the launch drew little attention.",
     }
 
 
@@ -73,6 +73,7 @@ def _fix(reactions, blast):
 
 async def analyze(campaign, brand, golden, provider="kimi", mode="live"):
     brand = brand or "the brand"
+    campaign = (campaign or "").strip()[:2500]  # cap pasted walls of text (tokens + layout)
     scenario = {"brand": brand, "category": "Campaign", "campaign": campaign,
                 "date": golden.get("scenario", {}).get("date", "")}
     creative = _scenes_from_text(campaign)

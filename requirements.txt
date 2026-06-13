@@ -5,3 +5,5 @@ pydantic>=2.6
 openai>=1.40
 requests>=2.31
 python-dotenv>=1.0
+videodb>=0.2
+daytona-sdk==0.21.8

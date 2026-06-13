@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Premortem</title>
+  <title>60's Pulse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=UnifrakturCook:wght@700&display=swap"
     rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -17,13 +18,13 @@
   <!-- ============================ STAGE 1: INPUT ============================ -->
   <main id="input-view" class="view">
     <div class="iv-inner">
-      <div class="iv-brandline">PREMORTEM <span class="sim-tag">SIMULATED</span></div>
+      <div class="iv-brandline">60's Pulse <span class="sim-tag">SIMULATED</span></div>
       <h1 class="iv-title">What are you about to launch?</h1>
-      <p class="iv-sub">Paste a campaign. Sixty grounded Singaporean agents tear it apart, before the public does.</p>
+      <p class="iv-sub">Paste a launch. Sixty grounded agents — public &amp; press — tear it apart, before the world does.</p>
 
       <form id="composer" class="composer" autocomplete="off">
         <textarea id="iv-text" class="composer-text" rows="3"
-          placeholder="Paste your campaign copy, script, or concept. Or drop in the key visual and the ad film."></textarea>
+          placeholder="Paste your launch copy, keynote script, or announcement. Or drop in the key visual and the launch film."></textarea>
         <div id="iv-chips" class="composer-chips"></div>
         <div class="composer-bar">
           <div class="composer-tools">
@@ -39,7 +40,7 @@
 
       <div class="iv-presets">
         <span class="presets-label">Try</span>
-        <button type="button" class="preset" id="preset-merliontel">MerlionTel &middot; &ldquo;We&rsquo;re Listening&rdquo; ad film</button>
+        <button type="button" class="preset" id="preset-merliontel">Google &middot; I/O 2026 &ldquo;always-on AI&rdquo; keynote</button>
       </div>
 
       <div class="iv-foot">Synthetic scenario simulation. Fictional masthead. Not a prediction of public opinion.</div>
@@ -50,11 +51,11 @@
   <section id="run-view" class="view hidden">
     <div class="rv-top">
       <div class="rv-head">
-        <div class="rv-kicker">Convening the Kopitiam Panel</div>
+        <div class="rv-kicker">Convening the Panel</div>
         <div class="rv-status" id="rv-status">Booting 60 sandboxes&hellip;</div>
       </div>
       <div class="rv-metrics">
-        <div class="rv-count" id="rv-count">0 / 60</div>
+        <div class="rv-count" id="rv-count">0 responded / 60 agents</div>
         <div class="rv-blast">
           <span class="rv-blast-num" id="rv-blast">0</span>
           <span class="rv-blast-label">Blast</span>
@@ -68,8 +69,8 @@
     <div class="rv-foot">
       <div class="rv-sponsor" id="rv-sponsor"></div>
       <div class="rv-actions">
-        <button class="skip-btn" id="skip-btn" type="button">skip &rarr;</button>
-        <button class="verdict-btn hidden" id="verdict-btn" type="button">See the verdict &rarr;</button>
+        <button class="skip-btn" id="skip-btn" type="button" title="Skip the agent animation and open the verdict">Skip animation &rarr;</button>
+        <button class="verdict-btn hidden" id="verdict-btn" type="button" title="Open the final verdict dashboard">Open verdict &rarr;</button>
       </div>
     </div>
   </section>
@@ -79,9 +80,9 @@
     <div id="app">
       <header class="masthead">
         <div class="nameplate">
-          <span class="wordmark">PREMORTEM</span>
+          <span class="wordmark">60's Pulse</span>
           <span class="rule-v"></span>
-          <span class="outlet" id="outlet">THE STRAITS STANDARD</span>
+          <span class="outlet" id="outlet">THE SIGNAL</span>
           <span class="sim-tag">SIMULATED</span>
         </div>
         <div class="masthead-meta" id="masthead-meta"></div>
@@ -112,7 +113,7 @@
 
       <section class="fold-bottom">
         <section class="col panel-col">
-          <h2 class="col-title">The Kopitiam Panel <em id="panel-sub"></em></h2>
+          <h2 class="col-title">The Panel <em id="panel-sub"></em></h2>
           <div class="panel-grid" id="panel-grid"></div>
           <div class="panel-legend" id="panel-legend"></div>
         </section>
@@ -123,7 +124,7 @@
         </section>
 
         <section class="col timeline-col">
-          <h2 class="col-title">Blast map <em>across the 0:30 film</em></h2>
+          <h2 class="col-title">Blast map <em>across the keynote</em></h2>
           <div class="timeline" id="timeline"></div>
           <div class="timeline-readout" id="timeline-readout"></div>
         </section>
@@ -138,14 +139,6 @@
         <h2 class="col-title">The fix <em>what each tier can and cannot move</em></h2>
         <div class="fix-steps" id="fix-steps"></div>
         <div class="fix-cards" id="fix-cards"></div>
-      </section>
-
-      <section class="headline-artifact">
-        <div class="artifact-head">
-          <h2 class="col-title">Tomorrow's Headline</h2>
-          <button class="toggle" id="page-toggle">Show page 12 &rarr;</button>
-        </div>
-        <article class="frontpage" id="frontpage"></article>
       </section>
 
       <footer class="foot" id="foot"></footer>

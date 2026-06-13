@@ -1,4 +1,4 @@
-/* Premortem dashboard. Pure render of /api/golden (the baked golden run). */
+/* 60's Pulse dashboard. Pure render of /api/golden (the baked golden run). */
 
 // ---- helpers ---------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
@@ -39,7 +39,6 @@ function heatPct(p) {
 
 const fmtT = (s) => `0:${String(Math.round(s)).padStart(2, "0")}`;
 
-// monogram avatars (no emoji): 2-letter initials in a severity-tinted cell
 function initials(label) {
   const w = (label || "").replace(/[^A-Za-z ]/g, " ").split(/\s+/).filter(Boolean);
   if (!w.length) return "–";
@@ -47,13 +46,39 @@ function initials(label) {
   return (w[0][0] + w[1][0]).toUpperCase();
 }
 function textOn(sev) { return sev >= 2 ? "#fff" : "var(--ink)"; }
+function hashText(text) {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
+  return h;
+}
+function agentVars(r, salt = 0) {
+  const abst = r.status === "abstain";
+  const h = hashText(`${r.agent_id || r.label || ""}:${salt}`);
+  const accents = ["#2E4A3B", "#493B5A", "#6B3B2A", "#2C4B62", "#665226", "#4D5147"];
+  const skins = ["#E7B987", "#D6A16F", "#C7835C", "#B96F4D", "#8E5C43", "#F0CFA3"];
+  return [
+    `--agent-heat:${abst ? "var(--paper-3)" : heatSeverity(r.severity)}`,
+    `--agent-text:${abst ? "var(--ink-faint)" : textOn(r.severity)}`,
+    `--agent-accent:${abst ? "#A9A18C" : accents[h % accents.length]}`,
+    `--agent-skin:${abst ? "#DAD4C4" : skins[(h >> 3) % skins.length]}`,
+    `--agent-tilt:${(h % 9) - 4}deg`,
+    `--agent-shift:${((h >> 5) % 7) - 3}%`,
+  ].join(";");
+}
+function agentFace(r) {
+  return [
+    el("span", { class: "agent-portrait", "aria-hidden": "true" },
+      el("span", { class: "agent-body" }),
+      el("span", { class: "agent-head" })),
+    el("span", { class: "agent-initials" }, initials(r.label)),
+  ];
+}
 function avatar(r, size) {
   const abst = r.status === "abstain";
   return el("span", {
-    class: `mono ${r.kind}`,
-    style: `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.36)}px;` +
-      `background:${abst ? "var(--paper-3)" : heatSeverity(r.severity)};color:${abst ? "var(--ink-faint)" : textOn(r.severity)}`,
-  }, initials(r.label));
+    class: `mono agent-avatar ${r.kind}${abst ? " abstain" : ""}`,
+    style: `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.36)}px;${agentVars(r, size)}`,
+  }, agentFace(r));
 }
 
 function countUp(node, to, ms = 1100) {
@@ -76,7 +101,6 @@ function renderMasthead(d) {
     el("span", { html: `<b>${a.panel_size}</b> agents` }),
     el("span", { html: `<b>${a.abstained}</b> abstained` }),
     el("span", { html: `grounded <b>${d.scenario.date}</b>` }),
-    el("span", {}, d.scenario.campaign),
   );
   const parts = d.sponsor_trace.map((s) => `<b>${s.sponsor}</b> ${s.detail}`);
   const line = parts.join('<span class="dot">&bull;</span>');
@@ -123,11 +147,11 @@ function renderPanel(d) {
   d.reactions.forEach((r, i) => {
     const abst = r.status === "abstain";
     const tile = el("div", {
-      class: `tile ${r.kind} ${abst ? "abstain" : "sev" + r.severity}`,
-      style: `--i:${i}; background:${abst ? "" : heatSeverity(r.severity)}; color:${abst ? "" : textOn(r.severity)}`,
+      class: `tile agent-avatar ${r.kind} ${abst ? "abstain" : "sev" + r.severity}`,
+      style: `--i:${i};${agentVars(r, i)}`,
       title: `${r.label}${abst ? " (abstained)" : ""}`,
       onclick: () => !abst && openQuote(r),
-    }, initials(r.label));
+    }, agentFace(r));
     grid.append(tile);
   });
   $("panel-sub").textContent = `${d.reactions.length} agents`;
@@ -169,12 +193,13 @@ function renderTimeline(d) {
     const isPeak = t.scene_id === d.aggregate.peak.scene_id;
     const bar = el("div", { class: "bar", style: `background:${heatPct(t.pct / 80)}` });
     const col = el("div", { class: "tl-bar" + (isPeak ? " peak" : ""), onclick: () => readout(d, t) },
+      isPeak ? el("div", { class: "peak-tag" }, "PEAK") : null,
       el("div", { class: "pct" }, t.pct + "%"),
       bar,
       el("div", { class: "t" }, fmtT(t.t_start)),
     );
     wrap.append(col);
-    requestAnimationFrame(() => { bar.style.height = (t.pct / max * 100) + "%"; });
+    requestAnimationFrame(() => { bar.style.height = (t.pct / max * 72) + "%"; });
   });
   readout(d, tl.find((t) => t.scene_id === d.aggregate.peak.scene_id));
 }
@@ -189,7 +214,7 @@ function renderStakeholders(d) {
   wrap.replaceChildren();
   d.stakeholder_badges.forEach((b) => {
     wrap.append(el("div", { class: "badge", title: b.note },
-      el("span", { class: "mono stakeholder", style: "width:30px;height:30px;font-size:11px;background:var(--severe);color:#fff" }, initials(b.role)),
+      avatar({ label: b.role, kind: "stakeholder", severity: 3, status: "responded" }, 30),
       el("div", {},
         el("div", { class: "brole" }, b.role),
         el("div", { class: "bverdict" }, b.verdict)),
@@ -231,27 +256,6 @@ function renderFix(d) {
       el("h4", {}, "DECISION · NO-GO"),
       el("p", {}, d.fix.residual.label)),
   );
-}
-
-let page12 = false;
-function renderFrontpage(d) {
-  const h = d.headline;
-  const fp = $("frontpage");
-  fp.className = "frontpage" + (page12 ? " page12" : "");
-  const kids = [
-    el("div", { class: "fp-watermark" }, "SIMULATED"),
-    el("div", { class: "fp-name" }, h.masthead),
-    el("div", { class: "fp-dateline" }, page12 ? "SINGAPORE · PAGE 12" : h.dateline),
-    el("div", { class: "fp-title" }, page12 ? h.page12_title : h.title),
-    page12 ? null : el("div", { class: "fp-sub" }, h.subtitle),
-    el("div", { class: "fp-deck" },
-      el("div", {},
-        el("div", { class: "fp-byline" }, h.byline),
-        el("div", { class: "fp-body" }, page12 ? h.page12_body : h.body)),
-      el("div", { class: "fp-cut" }, el("span", {}, "SenseNova U1 keyframe · degraded · SIMULATED")),
-    ),
-  ].filter(Boolean);
-  fp.replaceChildren(...kids);
 }
 
 function openQuote(r) {
@@ -327,17 +331,19 @@ function setupInput() {
 
   $("preset-merliontel").addEventListener("click", () => {
     text.value =
-      'MerlionTel "We\'re Listening" launch film. An AI that listens to your phone calls to ' +
-      'personalise the ads you see. 30-second spot: "We hear you... our new AI listens to your ' +
-      'calls... ads made for you... for every Singaporean... we\'re listening, for you."';
-    brand.value = "MerlionTel";
+      'Google I/O 2026 "100 things" keynote, read as an always-on AI launch. Gemini Spark, a ' +
+      '24/7 personal agent, "works in the background on your phone or laptop even while they\'re ' +
+      'turned off." Personal Intelligence connects your Gmail and Photos. Daily Brief "works ' +
+      'overnight," analysing your inbox, calendar and tasks. Agents operate 24/7 across the web. ' +
+      'Every output carries an imperceptible SynthID watermark, expanding to Search and Chrome.';
+    brand.value = "Google";
     attachments.length = 0;
-    attachments.push({ kind: "video", name: "merliontel_were_listening_30s.mp4", url: "#" });
+    attachments.push({ kind: "video", name: "google_io_2026_keynote.mp4", url: "#" });
     renderChips(); refresh();
     runBtn.focus();
   });
 
-  composer.addEventListener("submit", (e) => { e.preventDefault(); if (!runBtn.disabled) startRun(); });
+  composer.addEventListener("submit", (e) => { e.preventDefault(); if (!runBtn.disabled) startRun(text.value.trim(), brand.value.trim()); });
   refresh();
 }
 
@@ -345,18 +351,46 @@ function setupInput() {
 let DATA = null;
 let swarmTimers = [];
 
-async function startRun() {
+async function startRun(campaign, brand) {
   showView("run-view");
-  $("rv-status").textContent = "Booting 60 sandboxes…";
+  $("rv-grid").replaceChildren();
+  $("rv-feed").replaceChildren();
+  $("rv-blast").textContent = "0";
+  $("rv-count").textContent = "0 responded / 60 agents";
   $("verdict-btn").classList.add("hidden");
-  try {
-    const res = await fetch("/api/golden");
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    DATA = await res.json();
-  } catch (err) {
-    $("rv-status").textContent = "Could not load /api/golden (" + err + ")";
-    return;
+  const live = !!(campaign && campaign.trim());
+  let ticker = null;
+  if (live) {
+    const msgs = [
+      "Convening the panel on your launch…",
+      "60 agents — public & press — reading your announcement…",
+      "Reasoning on Kimi / Moonshot…",
+      "Each agent forming its own take…",
+    ];
+    let mi = 0;
+    $("rv-status").textContent = msgs[0];
+    $("rv-sponsor").textContent = "Kimi / Moonshot · live";
+    ticker = setInterval(() => { $("rv-status").textContent = msgs[++mi % msgs.length]; }, 1900);
   }
+  try {
+    if (live) {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ campaign, brand }),
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      DATA = await res.json();
+    } else {
+      DATA = await (await fetch("/api/golden")).json();
+    }
+  } catch (err) {
+    // safety net: replay the baked golden run if live fails
+    $("rv-status").textContent = "Live unavailable, replaying baked run…";
+    try { DATA = await (await fetch("/api/golden")).json(); }
+    catch (e2) { if (ticker) clearInterval(ticker); $("rv-status").textContent = "Could not load data"; return; }
+  }
+  if (ticker) clearInterval(ticker);
   playSwarm(DATA);
 }
 
@@ -373,7 +407,11 @@ function playSwarm(d) {
   const SPONSORS = ["Kimi K2.6 reasoning", "Bright Data grounding", "Daytona sandboxed", "VideoDB scene-aware"];
 
   const tiles = reactions.map((r) => {
-    const t = el("div", { class: `rv-tile ${r.kind}`, title: r.label }, initials(r.label));
+    const t = el("div", {
+      class: `rv-tile agent-avatar ${r.kind}`,
+      style: agentVars(r, r.agent_id || r.label),
+      title: r.label,
+    }, agentFace(r));
     grid.append(t);
     return t;
   });
@@ -386,7 +424,7 @@ function playSwarm(d) {
       const tile = tiles[i];
       tile.classList.add("on");
       if (abst) tile.classList.add("abstain");
-      else { tile.style.background = heatSeverity(r.severity); tile.style.color = textOn(r.severity); }
+      else tile.classList.add("sev" + r.severity);
 
       if (!abst) {
         responded++;
@@ -401,7 +439,7 @@ function playSwarm(d) {
         while (feed.children.length > 7) feed.lastChild.remove();
       }
 
-      $("rv-count").textContent = `${responded} / ${N}`;
+      $("rv-count").textContent = `${responded} responded / ${N} agents`;
       $("rv-blast").textContent = Math.round(finalBlast * Math.min(1, responded / finalResp));
       $("rv-status").textContent = "Agents reacting live…";
       $("rv-sponsor").textContent = SPONSORS[i % SPONSORS.length];
@@ -413,12 +451,11 @@ function playSwarm(d) {
 }
 
 function finishSwarm(d) {
-  $("rv-status").textContent = "Verdict ready";
+  $("rv-status").textContent = `Verdict ready · ${d.aggregate.abstained} abstained`;
+  $("rv-count").textContent = `${d.aggregate.responders} responded / ${d.aggregate.panel_size} agents`;
   $("rv-blast").textContent = d.aggregate.blast_score;
   $("verdict-btn").classList.remove("hidden");
-  const auto = setTimeout(() => showDashboard(d), 1500);
-  swarmTimers.push(auto);
-  $("verdict-btn").onclick = () => { clearTimeout(auto); showDashboard(d); };
+  $("verdict-btn").onclick = () => showDashboard(d);
 }
 
 // ---- stage 3: dashboard ----------------------------------------------------
@@ -429,7 +466,7 @@ function showDashboard(d) {
 }
 
 function renderDashboard(d) {
-  document.title = `Premortem — ${d.scenario.brand}`;
+  document.title = `60's Pulse — ${d.scenario.brand}`;
   renderMasthead(d);
   renderBlast(d);
   renderCreative(d);
@@ -439,17 +476,11 @@ function renderDashboard(d) {
   renderTimeline(d);
   renderStakeholders(d);
   renderFix(d);
-  renderFrontpage(d);
   $("foot").replaceChildren(
     el("span", {}, `run ${d.run_id} · mode ${d.mode}`),
-    el("span", {}, "Premortem · Agent Forge AI Hackathon 2026"),
+    el("span", {}, "60's Pulse · Agent Forge AI Hackathon 2026"),
     el("span", {}, "All reactions are synthetic. Fictional masthead. Not a prediction."),
   );
-  $("page-toggle").onclick = () => {
-    page12 = !page12;
-    $("page-toggle").innerHTML = page12 ? "Show front page &rarr;" : "Show page 12 &rarr;";
-    renderFrontpage(d);
-  };
 }
 
 // ---- boot ------------------------------------------------------------------

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0C10; --paper:#F3EFE3; --muted:#8C8A82;
+    --rule:rgba(243,239,227,0.18); --rule2:rgba(243,239,227,0.42);
+    --calm:#2E4A45; --rising:#E8A317; --severe:#F5402C; --blast:#FF2D55;
+    --serif:'Newsreader',Georgia,serif; --mono:'IBM Plex Mono',monospace; --black:'UnifrakturCook',serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{width:720pt;height:405pt;overflow:hidden;position:relative;background:var(--ink);color:var(--paper);font-family:var(--serif);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;padding:14pt 30pt 14pt;}
+  .mh{display:flex;justify-content:space-between;align-items:baseline;}
+  .mh .name{font-family:var(--black);font-size:15pt;}
+  .mh .meta{font-family:var(--mono);font-size:7.5pt;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+  .doublerule{border-top:2pt solid var(--rule2);border-bottom:1pt solid var(--rule2);height:3pt;margin:7pt 0 0;}
+  .kicker{font-family:var(--mono);font-size:8pt;letter-spacing:0.2em;text-transform:uppercase;color:var(--rising);margin:11pt 0 0;}
+  .lead{font-family:var(--serif);font-weight:700;font-size:22pt;line-height:1.04;letter-spacing:-0.01em;margin-top:2pt;}
+  .lead em{font-style:italic;}
+  .main{flex:1;display:grid;grid-template-columns:218pt 1.5pt 1fr;gap:22pt;margin-top:14pt;}
+  .divider{background:var(--rule2);}
+  /* step-down */
+  .stephead{font-family:var(--mono);font-size:7.5pt;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);}
+  .steps{display:flex;align-items:flex-end;gap:8pt;height:138pt;margin-top:20pt;}
+  .step{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;}
+  .step .v{font-family:var(--mono);font-weight:700;font-size:21pt;margin-bottom:5pt;}
+  .step .bar{width:100%;}
+  .step .lab{font-family:var(--mono);font-size:7pt;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:6pt;text-align:center;line-height:1.3;}
+  .residual{font-family:var(--serif);font-style:italic;font-size:10pt;color:var(--blast);margin-top:8pt;text-align:center;}
+  /* tier cards */
+  .tiers{display:flex;flex-direction:column;gap:9pt;}
+  .tier{border-top:1pt solid var(--rule);padding-top:8pt;display:grid;grid-template-columns:18pt 1fr auto;gap:10pt;align-items:baseline;}
+  .tier .tno{font-family:var(--mono);font-size:10pt;}
+  .tier h3{font-family:var(--serif);font-weight:700;font-size:14pt;line-height:1;}
+  .tier .sub{font-family:var(--mono);font-size:7pt;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:3pt;}
+  .tier p{font-family:var(--serif);font-size:10pt;line-height:1.34;color:#CFC9BB;margin-top:4pt;}
+  .tier .delta{font-family:var(--mono);font-weight:700;font-size:13pt;white-space:nowrap;}
+  .c-copy .tno,.c-copy .delta{color:var(--rising);}
+  .c-prod .tno,.c-prod .delta{color:var(--severe);}
+  .c-dec .tno,.c-dec .delta{color:var(--blast);}
+  .goodhart{font-family:var(--serif);font-style:italic;font-size:10.5pt;line-height:1.36;color:#D6D1C3;margin-top:11pt;padding-top:9pt;border-top:1pt solid var(--rule);}
+  .goodhart b{font-style:normal;font-weight:700;color:var(--paper);}
+</style>
+</head>
+<body>
+  <header>
+    <div class="mh"><span class="name">The Straits Standard</span><span class="meta">SIMULATED &middot; The Fix &middot; 13 Jun</span></div>
+    <div class="doublerule"></div>
+    <p class="kicker">The 3&#8209;Tier Fix &mdash; Section E</p>
+    <h1 class="lead">Three tiers. One of them <em>isn&rsquo;t a copy edit.</em></h1>
+  </header>
+
+  <div class="main">
+    <section>
+      <p class="stephead">Blast Score, after each fix</p>
+      <div class="steps">
+        <div class="step"><span class="v" style="color:var(--blast)">84</span><div class="bar" style="height:104pt;background:var(--blast)"></div><span class="lab">As shot</span></div>
+        <div class="step"><span class="v" style="color:var(--severe)">55</span><div class="bar" style="height:68pt;background:var(--severe)"></div><span class="lab">&minus;29<br>rewrite copy</span></div>
+        <div class="step"><span class="v" style="color:var(--rising)">28</span><div class="bar" style="height:35pt;background:var(--rising)"></div><span class="lab">&minus;27<br>cut 0:12</span></div>
+      </div>
+      <p class="residual">residual 28 &mdash; your call, not our copy edit</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section>
+      <div class="tiers">
+        <div class="tier c-copy"><span class="tno">01</span><div><h3>Copy</h3><div class="sub">Copy&#8209;fixable</div><p>Rewrite the &ldquo;we listen to your calls&rdquo; privacy line. Re&#8209;sim.</p></div><span class="delta">84&rarr;55</span></div>
+        <div class="tier c-prod"><span class="tno">02</span><div><h3>Production</h3><div class="sub">Unfixable by wording</div><p>Cut the tone&#8209;deaf casting at 0:12 &mdash; no rewrite saves an image.</p></div><span class="delta">55&rarr;28</span></div>
+        <div class="tier c-dec"><span class="tno">03</span><div><h3>Decision</h3><div class="sub">No&#8209;go / launch call</div><p>The surveillance premise itself. Not an edit &mdash; a decision.</p></div><span class="delta">= 28</span></div>
+      </div>
+      <p class="goodhart">&ldquo;Couldn&rsquo;t a rewrite just <b>game your panel?</b>&rdquo; &mdash; Wording only moves the wording tier, by construction. That separation is what keeps the score honest.</p>
+    </section>
+  </div>
+</body>
+</html>
