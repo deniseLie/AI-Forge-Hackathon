@@ -44,17 +44,39 @@ def build_shared_prefix(scenario, creative):
     )
 
 
+# Voice hints so persona quotes sound naturally Singaporean, not generic English.
+REGISTER = {
+    "auntie": "heartland Singlish, WhatsApp-forward cadence (aiyoh, lah, ah), wary of new tech",
+    "poly": "Gen-Z Singlish, online/meme register (bro, sia, siao)",
+    "techbro": "HardwareZone / EDMW forum register, technical and a bit cynical",
+    "parents": "anxious young-parent Singlish, child-safety first",
+    "gig": "tired gig-worker Singlish, cost-of-living frustration",
+    "finance": "polished corporate Singaporean English, risk and reputation framing",
+    "activist": "Gen-Z activist English, digital-rights vocabulary",
+    "influencer": "chronically-online influencer English, ratio/clip register",
+    "towkay": "older heartland SME Singlish, practical (cannot lah, like that how)",
+    "pmet": "mid-career PMET Singaporean English, change-fatigue and job anxiety",
+}
+
+
+def _base(agent_id):
+    parts = (agent_id or "").rsplit("_", 1)
+    return parts[0] if (len(parts) == 2 and parts[1].isdigit()) else agent_id
+
+
 def build_agent_block(agent):
     grounding = agent.get("grounding") or []
     evidence = (
         "\n".join(f"- ({g['source']}) \"{g['text']}\"" for g in grounding)
         or "(your search returned nothing usable; reason from your own perspective and expect this to be flagged as speculation)"
     )
-    voice = (
-        "Speak in the FIRST person, in character."
-        if agent["kind"] == "persona"
-        else "Report a THIRD-person risk finding. Do NOT roleplay an identity in the first person."
-    )
+    if agent["kind"] == "persona":
+        voice = "Speak in the FIRST person, in character."
+        reg = REGISTER.get(_base(agent.get("agent_id", "")))
+        if reg:
+            voice += f" Voice/register: {reg}. Make the quote sound naturally Singaporean, not generic English."
+    else:
+        voice = "Report a THIRD-person risk finding. Do NOT roleplay an identity in the first person."
     return (
         f"YOU ARE: {agent['label']} ({agent['kind']}).\n{voice}\n"
         f"Your own research for this campaign (query: \"{agent.get('grounding_query','')}\"):\n"

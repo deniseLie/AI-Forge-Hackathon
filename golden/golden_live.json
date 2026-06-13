@@ -79,14 +79,14 @@
       "label": "Toa Payoh retiree auntie",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "privacy and security concerns",
+      "objection_category": "privacy concerns",
       "objections": [
         "pricing",
         "privacy",
-        "privacy and security concerns",
+        "privacy concerns",
         "surveillance"
       ],
-      "quote": "What kind of nonsense is this? Now our phone calls can be recorded, who knows who might use that information? I'm already worried about scams.",
+      "quote": "Aiyoh, now MerlionTel wants to listen to my calls, my phone conversations private one lah, how can I trust they won't let any scammers listen too?",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -112,12 +112,45 @@
           "text": "My mother almost gave her OTP to a 'bank' caller last week. Now a telco wants to record calls? The elderly will get destroyed by this."
         }
       ],
-      "question": "How can we be sure our private conversations won't be abused by scammers, especially when you guys are recording our calls?",
+      "question": "How can MerlionTel assure us that our private conversations won't fall into the wrong hands?",
       "status": "responded",
       "verdict": null
     },
     {
       "agent_id": "auntie_2",
+      "kind": "persona",
+      "emoji": "👵",
+      "label": "Toa Payoh retiree auntie",
+      "severity": 2,
+      "sentiment": -1,
+      "objection_category": "Privacy and Intrusion",
+      "objections": [
+        "Privacy and Intrusion",
+        "pricing",
+        "privacy",
+        "surveillance"
+      ],
+      "quote": "I'm not too sure about this, you see. Our phone conversations, they're private, right? I'm a little worried that a machine is Spying on our calls like this lah. What if it turns out like those scams calling people calling about bank accounts, tan chow lah.",
+      "trigger_moments": [
+        {
+          "scene_id": "s04",
+          "t": 4
+        }
+      ],
+      "fix_tier": "decision",
+      "would_share": {
+        "yes": true,
+        "where": "whatsapp"
+      },
+      "evidence_id": null,
+      "grounding_query": "r/singapore elderly privacy scam call recording",
+      "grounding": [],
+      "question": "How do you ensure the AI won’t misinterpret our conversations and share our private information with others?",
+      "status": "responded",
+      "verdict": null
+    },
+    {
+      "agent_id": "auntie_3",
       "kind": "persona",
       "emoji": "👵",
       "label": "Toa Payoh retiree auntie",
@@ -130,48 +163,7 @@
         "privacy",
         "surveillance"
       ],
-      "quote": "Kiam siew! My phone calls are private, nolah! You listening in on our phone calls sounds more like those scam calls saying they from the bank.",
-      "trigger_moments": [
-        {
-          "scene_id": "s04",
-          "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
-        }
-      ],
-      "fix_tier": "decision",
-      "would_share": {
-        "yes": true,
-        "where": "whatsapp"
-      },
-      "evidence_id": null,
-      "grounding_query": "r/singapore elderly privacy scam call recording",
-      "grounding": [],
-      "question": "How comes MerlionTel thinks it's okay to listen to all our calls? It's creepy and feels like a violation of my personal space.",
-      "status": "responded",
-      "verdict": null
-    },
-    {
-      "agent_id": "auntie_3",
-      "kind": "persona",
-      "emoji": "👵",
-      "label": "Toa Payoh retiree auntie",
-      "severity": 3,
-      "sentiment": -3,
-      "objection_category": "Privacy and Security Concerns",
-      "objections": [
-        "Privacy and Security Concerns",
-        "pricing",
-        "privacy",
-        "surveillance"
-      ],
-      "quote": "How can a company like MerlionTel even think it's okay to listen in on our calls? What if someone tricks me like those in the scam calls I've been hearing about? That's no privacy at all!",
+      "quote": "aiyoh, MerlionTel saying they listen to our calls to show us smart ads. I worry they might steal our secrets or give info to those scammers who pretend to be banks, ah!",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -197,7 +189,7 @@
           "text": "My mother almost gave her OTP to a 'bank' caller last week. Now a telco wants to record calls? The elderly will get destroyed by this."
         }
       ],
-      "question": "MerlionTel, how do you plan to ensure the personal information and conversations of your subscribers, especially the elderly, are protected from scams and data breaches while your AI listens in on our calls?",
+      "question": "How can MerlionTel guarantee that our private conversations won't be abused or end up in the wrong hands?",
       "status": "responded",
       "verdict": null
     },
@@ -208,25 +200,21 @@
       "label": "Toa Payoh retiree auntie",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "privacy and security",
+      "objection_category": "Privacy Concerns",
       "objections": [
+        "Privacy Concerns",
         "pricing",
         "privacy",
-        "privacy and security",
         "surveillance"
       ],
-      "quote": "They say they listen to our calls, what if the wrong people also listen to our private talks? Who knows what they do with all that information?",
+      "quote": "Aiyoh, but using AI to listen to our calls sounds fishy leh, what if some unscrupulous people use this to scam me? Heard too many stories about such things happening to our neighbours.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "copy",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -234,7 +222,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore elderly privacy scam call recording",
       "grounding": [],
-      "question": "How can we be sure our private conversations won't be misused by MerlionTel or fall into the hands of criminals?",
+      "question": "How can MerlionTel guarantee that this AI will not be misused or our call details fall into the wrong hands?",
       "status": "responded",
       "verdict": null
     },
@@ -253,7 +241,7 @@
         "surveillance",
         "tone_deaf"
       ],
-      "quote": "It's one thing to collect data when I use a service, but spying on our phone calls without consent crosses a line. This builds a personal ad profile based on private conversations - that's got to be illegal, right?",
+      "quote": "Bro, ai listening in on my calls, sounds like Big Brother hanging around and that's some next level siao.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -275,7 +263,7 @@
           "text": "A telco listening to your calls to sell ads is literally the plot of a dystopia. Hard pass."
         }
       ],
-      "question": "What assurances do we have that this AI will respect users' privacy and not be abused?",
+      "question": "How do you ensure that our private conversations aren't misused for profit?",
       "status": "responded",
       "verdict": null
     },
@@ -286,19 +274,23 @@
       "label": "Poly student / NSF",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy and Surveillance Concerns",
+      "objection_category": "Privacy Concerns",
       "objections": [
-        "Privacy and Surveillance Concerns",
+        "Privacy Concerns",
         "privacy",
         "race_representation",
         "surveillance",
         "tone_deaf"
       ],
-      "quote": "I'm uncomfortable with the idea that my phone calls are being listened to by an AI, even if it's just for ad personalization. It feels like an invasion of privacy.",
+      "quote": "Wah, how can MerlionTel say they 'hear you' by listening to our calls leh? This 'smarter ads' thing sounds pretty creeepy lor, privacy-wise.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
+        },
+        {
+          "scene_id": "s08",
+          "t": 8
         }
       ],
       "fix_tier": "decision",
@@ -309,7 +301,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore telco listening to calls surveillance",
       "grounding": [],
-      "question": "How will MerlionTel ensure the data collected from our calls will be securely stored and not misused?",
+      "question": "So, do you MerlionTel gonna protect our privacy or what with this new AI listening to our calls?",
       "status": "responded",
       "verdict": null
     },
@@ -328,7 +320,7 @@
         "surveillance",
         "tone_deaf"
       ],
-      "quote": "I mean, I get advertising is a thing, but having a telco listening to my calls to personalize ads? That's just creepy and feels like a massive invasion of privacy.",
+      "quote": "Bro, say what? MerlionTel really listening in on calls for ads? This is so not okay, feels like Big Brother is watching.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -350,7 +342,7 @@
           "text": "A telco listening to your calls to sell ads is literally the plot of a dystopia. Hard pass."
         }
       ],
-      "question": "How can MerlionTel guarantee that this AI won't be abused to violate personal privacy and how will legislation be upheld in this regard?",
+      "question": "How do we know our private conversations won't be abused or mishandled by MerlionTel?",
       "status": "responded",
       "verdict": null
     },
@@ -361,15 +353,52 @@
       "label": "Poly student / NSF",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "privacy and surveillance concerns",
+      "objection_category": "Privacy",
       "objections": [
+        "Privacy",
         "privacy",
-        "privacy and surveillance concerns",
         "race_representation",
         "surveillance",
         "tone_deaf"
       ],
-      "quote": "I'm honestly a bit creeped out that MerlionTel's AI is listening to our calls. I don't trust the idea that my private conversations are being monitored and used to sell me stuff.",
+      "quote": "Bro, wtf, this whole 'AI listening to calls' thing sounds really shady and creepy, can’t MerlionTel respect our privacy? Plus that CMIO representation is super lazy, come on, don't just throw everyone together.",
+      "trigger_moments": [
+        {
+          "scene_id": "s08",
+          "t": 8
+        },
+        {
+          "scene_id": "s12",
+          "t": 12
+        }
+      ],
+      "fix_tier": "production",
+      "would_share": {
+        "yes": true,
+        "where": "whatsapp"
+      },
+      "evidence_id": null,
+      "grounding_query": "r/singapore telco listening to calls surveillance",
+      "grounding": [],
+      "question": "How does MerlionTel plan to ensure that their AI won't be listening to our private conversations and what's the purpose behind portraying such a blatant CMIO stereotype?",
+      "status": "responded",
+      "verdict": null
+    },
+    {
+      "agent_id": "techbro_1",
+      "kind": "persona",
+      "emoji": "👨‍💻",
+      "label": "HWZ tech bro",
+      "severity": 2,
+      "sentiment": -1,
+      "objection_category": "Privacy Concerns",
+      "objections": [
+        "Privacy Concerns",
+        "privacy",
+        "surveillance",
+        "trust"
+      ],
+      "quote": "Man, the audio processing server-side? That's a real worry for privacy issues leh.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -379,39 +408,6 @@
       "fix_tier": "decision",
       "would_share": {
         "yes": true,
-        "where": "whatsapp"
-      },
-      "evidence_id": null,
-      "grounding_query": "r/singapore telco listening to calls surveillance",
-      "grounding": [],
-      "question": "Will MerlionTel clarify how they ensure the privacy of call data and what legal safeguards are in place to prevent misuse of this information?",
-      "status": "responded",
-      "verdict": null
-    },
-    {
-      "agent_id": "techbro_1",
-      "kind": "persona",
-      "emoji": "👨‍💻",
-      "label": "HWZ tech bro",
-      "severity": 1,
-      "sentiment": -1,
-      "objection_category": "Privacy and Security",
-      "objections": [
-        "Privacy and Security",
-        "privacy",
-        "surveillance",
-        "trust"
-      ],
-      "quote": "I can dig the personalisation, but as a techie, the thought of my call data being listened to makes me jittery about a server-side breach - it's super risky.",
-      "trigger_moments": [
-        {
-          "scene_id": "s04",
-          "t": 4
-        }
-      ],
-      "fix_tier": "production",
-      "would_share": {
-        "yes": false,
         "where": "whatsapp"
       },
       "evidence_id": "gp_hwz_007",
@@ -424,7 +420,7 @@
           "text": "If the audio is processed server-side it's a goldmine for hackers. One breach and every call transcript leaks. PDPC will have a field day."
         }
       ],
-      "question": "How do we assure customers that their call data is safe from cyber threats if the AI is equipped to listen?",
+      "question": "How will MerlionTel ensure that the customers' private call data is safe from potential cyber breaches while using server-side processing for AI analytics?",
       "status": "responded",
       "verdict": null
     },
@@ -435,14 +431,14 @@
       "label": "HWZ tech bro",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy and Consent",
+      "objection_category": "Privacy Concerns",
       "objections": [
-        "Privacy and Consent",
+        "Privacy Concerns",
         "privacy",
         "surveillance",
         "trust"
       ],
-      "quote": "Man, you'd think that before airing something like 'Our new AI listens to your calls to understand what you really want,' they'd have a discussion with us geeks at HardwareZone. This kind of thing crosses serious lines on PDPA regulations and user consent, bro.",
+      "quote": "I mean, listen, AI on my calls? That just feels like a major PDPA infringement, man. What about my privacy, huh? Can't have Big Brother listening in every time I'm on the line.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -457,7 +453,7 @@
       "evidence_id": null,
       "grounding_query": "HardwareZone MerlionTel call data on-device PDPA",
       "grounding": [],
-      "question": "How do we ensure that MerlionTel's use of call data for AI personalization is compliant with PDPA regulations?",
+      "question": "Isn't eavesdropping on private calls a breach of personal data protection? How can you assure Singaporeans that their conversations are secure and private in this 'listening' process?",
       "status": "responded",
       "verdict": null
     },
@@ -475,7 +471,7 @@
         "surveillance",
         "trust"
       ],
-      "quote": "I can't stand the thought of bots peeking through my phone calls, feels so 1984! PDPC better get involved, coz it's one massive breach waiting to happen.",
+      "quote": "AI or no AI, I'm not sold on this idea of having my calls listened to, processed server-side like some HardwareZone horror story.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -501,7 +497,7 @@
           "text": "If the audio is processed server-side it's a goldmine for hackers. One breach and every call transcript leaks. PDPC will have a field day."
         }
       ],
-      "question": "Won't this campaign backtrack on everything MerlionTel has promised about privacy and security?",
+      "question": "How does MerlionTel ensure that my call data is safe and not vulnerable to breaches if the audio is processed server-side?",
       "status": "responded",
       "verdict": null
     },
@@ -510,31 +506,31 @@
       "kind": "persona",
       "emoji": "👨‍💻",
       "label": "HWZ tech bro",
-      "severity": 2,
+      "severity": 1,
       "sentiment": -1,
-      "objection_category": "Privacy",
+      "objection_category": "Privacy Concerns",
       "objections": [
-        "Privacy",
+        "Privacy Concerns",
         "privacy",
         "surveillance",
         "trust"
       ],
-      "quote": "Dude, this whole 'AI that listens to your calls' thing is super shady. Who gave MerlionTel the green light to snatch our call data? I feel like there's a total lack of respect for PDPA and this could be a massive own-goal if it goes live.",
+      "quote": "I mean, I get that targeted ads are the new normal, but having AI listen right into my call and personalising ads based on that, that seems just one step too far, no?",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "copy",
       "would_share": {
-        "yes": true,
+        "yes": false,
         "where": "whatsapp"
       },
       "evidence_id": null,
       "grounding_query": "HardwareZone MerlionTel call data on-device PDPA",
       "grounding": [],
-      "question": "How does MerlionTel intend to reassure customers on complying with local privacy protection regulations, specifically Section 24 of PDPA, and avoid personal data misuse?",
+      "question": "How does MerlionTel ensure users' call data privacy and compliance with PDPA when implementing AI to listen to calls?",
       "status": "responded",
       "verdict": null
     },
@@ -545,25 +541,17 @@
       "label": "Punggol young HDB parents",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns and Unethical Surveillance",
+      "objection_category": "Privacy and Safety Concerns",
       "objections": [
-        "Privacy Concerns and Unethical Surveillance",
+        "Privacy and Safety Concerns",
         "child_safety",
         "privacy"
       ],
-      "quote": "I'm not comfortable with the idea of MerlionTel monitoring my conversations to tailor ads. How can we be sure this won't compromise our family's privacy, especially considering our kids are around?",
+      "quote": "Eh, wait a minute! You say your AI listens to my calls? What about my little ones around the house, do you record them too? How can I trust that my children's privacy won't be compromised?",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
         }
       ],
       "fix_tier": "decision",
@@ -574,7 +562,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore children data privacy app recording",
       "grounding": [],
-      "question": "What measures are in place to ensure that the data collected is secure, and that our children's safety is not put at risk by these invasive marketing tactics?",
+      "question": "How can MerlionTel guarantee that kids' voices and personal data won't be accidentally collected or misused by your AI?",
       "status": "responded",
       "verdict": null
     },
@@ -585,18 +573,14 @@
       "label": "Punggol young HDB parents",
       "severity": 1,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns",
+      "objection_category": "Ethical Privacy Concerns",
       "objections": [
-        "Privacy Concerns",
+        "Ethical Privacy Concerns",
         "child_safety",
         "privacy"
       ],
-      "quote": "I worry how this could potentially listen to my children too without my control, wouldn't that breach their privacy?",
+      "quote": "Eh, I'm worried leh. How can we trust them to listen to our phones but not to tamper with the kids' data, especially since they're always on them.",
       "trigger_moments": [
-        {
-          "scene_id": "s00",
-          "t": 0
-        },
         {
           "scene_id": "s04",
           "t": 4
@@ -604,18 +588,6 @@
         {
           "scene_id": "s08",
           "t": 8
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
-        },
-        {
-          "scene_id": "s16",
-          "t": 16
-        },
-        {
-          "scene_id": "s22",
-          "t": 22
         }
       ],
       "fix_tier": "decision",
@@ -626,7 +598,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore children data privacy app recording",
       "grounding": [],
-      "question": "Does MerlionTel have safeguards to prevent the leakage of private conversations, especially those involving minors?",
+      "question": "How do you ensure the safety and privacy of children when AI is used to analyze phone calls?",
       "status": "responded",
       "verdict": null
     },
@@ -637,13 +609,13 @@
       "label": "Punggol young HDB parents",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy concerns",
+      "objection_category": "privacy_concerns",
       "objections": [
-        "Privacy concerns",
         "child_safety",
-        "privacy"
+        "privacy",
+        "privacy_concerns"
       ],
-      "quote": "Isn't this a breach of our privacy? What if the AI also picks up conversations about personal issues or even our children? Who guarantees the data's security?",
+      "quote": "I'm really worried because if this AI can listen to all our phone calls, won't it be hearing my kids' conversations too? There's no way to know who's going to use that information.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -662,7 +634,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore children data privacy app recording",
       "grounding": [],
-      "question": "How can we be certain that the AI system only listens to calls for ad personalization and nothing more?",
+      "question": "How does MerlionTel ensure sensitive or private information spoken by children will be protected and will not be exploited in any way?",
       "status": "responded",
       "verdict": null
     },
@@ -673,17 +645,17 @@
       "label": "Punggol young HDB parents",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns and Family Safety",
+      "objection_category": "Privacy Concerns",
       "objections": [
-        "Privacy Concerns and Family Safety",
+        "Privacy Concerns",
         "child_safety",
         "privacy"
       ],
-      "quote": "I'm uncomfortable with the idea that AI listens to my calls where my children might be present - what are the implications for their privacy?",
+      "quote": "Eh, but listening to our calls? What guarantee got that my kid's voice won't be recorded and used without our consent? Very worrying leh, especially with hackers around.",
       "trigger_moments": [
         {
-          "scene_id": "s08",
-          "t": 8
+          "scene_id": "s04",
+          "t": 4
         }
       ],
       "fix_tier": "decision",
@@ -694,7 +666,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore children data privacy app recording",
       "grounding": [],
-      "question": "How can parents be assured that their children's privacy and conversations are protected from being listened to by this AI?",
+      "question": "How does MerlionTel ensure that children’s voices and conversations are protected from being exploited in your new AI call-listening feature?",
       "status": "responded",
       "verdict": null
     },
@@ -705,22 +677,18 @@
       "label": "Grab gig worker",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns and Ethical Concerns",
+      "objection_category": "Privacy Concerns and Monetisation of Personal Data",
       "objections": [
-        "Privacy Concerns and Ethical Concerns",
+        "Privacy Concerns and Monetisation of Personal Data",
         "pricing",
         "race_representation",
         "surveillance"
       ],
-      "quote": "I don't want some AI listening in on my calls and using that info for ads. My private life shouldn't be for sale, no matter how good the 'deal'.",
+      "quote": "Wah, already working so hard just to make ends meet, and now MerlionTel wants to listen in on our phone calls to sell us stuff. Come on, the cost of living's high enough. Don't they get it?",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
         },
         {
           "scene_id": "s16",
@@ -742,7 +710,7 @@
           "text": "Cost of living already siao, now they monetise our private conversations and call it 'better deals'. No thanks."
         }
       ],
-      "question": "How does MerlionTel ensure our private conversations remain confidential when using AI to generate personalized ads?",
+      "question": "Why is MerlionTel intruding on our privacy to push more ads, when we just want to save money in the first place?",
       "status": "responded",
       "verdict": null
     },
@@ -751,16 +719,16 @@
       "kind": "persona",
       "emoji": "🛵",
       "label": "Grab gig worker",
-      "severity": 2,
+      "severity": 1,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns",
+      "objection_category": "Privacy and Data Concerns",
       "objections": [
-        "Privacy Concerns",
+        "Privacy and Data Concerns",
         "pricing",
         "race_representation",
         "surveillance"
       ],
-      "quote": "I spend most of my time on the road and my phone is pretty much everything to me. If MerlionTel is listening in on my calls, it really makes me uncomfortable and seems a bit too invasive.",
+      "quote": "Siao liao, even my phone company got to listen to my calls now? Cannot be trusted, they're just going use it to profit more. Next thing you know, they might sell our information.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -769,13 +737,13 @@
       ],
       "fix_tier": "decision",
       "would_share": {
-        "yes": true,
+        "yes": false,
         "where": "whatsapp"
       },
       "evidence_id": null,
       "grounding_query": "r/singapore cost of living telco ads privacy",
       "grounding": [],
-      "question": "How does MerlionTel intend to address the privacy concerns that stem from an AI listening in on personal calls for ad personalization?",
+      "question": "Is there really no other way to personalise adverts without listening to our private calls?",
       "status": "responded",
       "verdict": null
     },
@@ -786,14 +754,14 @@
       "label": "Grab gig worker",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concern and False Benefit",
+      "objection_category": "Privacy & Trust",
       "objections": [
-        "Privacy Concern and False Benefit",
+        "Privacy & Trust",
         "pricing",
         "race_representation",
         "surveillance"
       ],
-      "quote": "Who's gonna profit here exactly? They're taking our privacy just to serve us more ads? Sounds like bull****. What's 'better deals' if they're using our private call data to sell more to us while we're already stretching every lastcent in this high cost place?",
+      "quote": "Entire day already tired running all over the place, now this MerlionTel thinks they can listen in on my calls? Privacy gone all out the window, is it 'smarter ads' or just plain creepy?",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -802,17 +770,9 @@
         {
           "scene_id": "s08",
           "t": 8
-        },
-        {
-          "scene_id": "s16",
-          "t": 16
-        },
-        {
-          "scene_id": "s22",
-          "t": 22
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "production",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -827,7 +787,7 @@
           "text": "Cost of living already siao, now they monetise our private conversations and call it 'better deals'. No thanks."
         }
       ],
-      "question": "How does listening to our calls equate to 'better deals' when all it seems to does is further exploit our private information for ads?",
+      "question": "What steps have been taken to assure customers that their personal conversations won't be exploited by MerlionTel's AI, especially given that many gig workers might consider this information sensitive?",
       "status": "responded",
       "verdict": null
     },
@@ -836,31 +796,31 @@
       "kind": "persona",
       "emoji": "🛵",
       "label": "Grab gig worker",
-      "severity": 1,
+      "severity": 2,
       "sentiment": -1,
-      "objection_category": "privacy and security",
+      "objection_category": "Privacy concerns",
       "objections": [
+        "Privacy concerns",
         "pricing",
-        "privacy and security",
         "race_representation",
         "surveillance"
       ],
-      "quote": "I'm telling you, if I'm on a call my cousin saying her baby's sick, and then an ad pops up for the nearest hospital? Everyone's going to know my family's business. It's not okay!",
+      "quote": "They say they listening to our calls, hear us? Sounds a bit susuan hor. You realize this mean no more privacy leh! What's next, Terminator.sg?",
       "trigger_moments": [
         {
-          "scene_id": "s08",
-          "t": 8
+          "scene_id": "s04",
+          "t": 4
         }
       ],
-      "fix_tier": "copy",
+      "fix_tier": "decision",
       "would_share": {
-        "yes": false,
+        "yes": true,
         "where": "whatsapp"
       },
       "evidence_id": null,
       "grounding_query": "r/singapore cost of living telco ads privacy",
       "grounding": [],
-      "question": "How exactly is MerlionTel ensuring our private conversations remain just that, private, despite its AI having access to our phone calls?",
+      "question": "How will MerlionTel ensure our privacy is not compromised by this new AI listening in on our calls?",
       "status": "responded",
       "verdict": null
     },
@@ -870,14 +830,14 @@
       "emoji": "💼",
       "label": "Raffles Place finance PMET",
       "severity": 2,
-      "sentiment": -1,
-      "objection_category": "Privacy concerns",
+      "sentiment": 0,
+      "objection_category": "Privacy and Data Security",
       "objections": [
-        "Privacy concerns",
+        "Privacy and Data Security",
         "privacy",
         "trust"
       ],
-      "quote": "It's one thing to personalise ads, but having an AI listen into personal calls crosses a major privacy line. If this gets out, trust in MerlionTel would plummet.",
+      "quote": "Listening to private calls not only breaches one's trust but also raises serious concerns about MerlionTel's handling of personal data",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -888,7 +848,7 @@
           "t": 8
         }
       ],
-      "fix_tier": "production",
+      "fix_tier": "decision",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -896,7 +856,7 @@
       "evidence_id": null,
       "grounding_query": "MerlionTel data breach reputation liability",
       "grounding": [],
-      "question": "How does MerlionTel plan on reassuring customers about the security and privacy of their call data?",
+      "question": "How does MerlionTel intend to ensure that the data harvested from private calls is protected from breaches and misuse?",
       "status": "responded",
       "verdict": null
     },
@@ -905,15 +865,15 @@
       "kind": "persona",
       "emoji": "💼",
       "label": "Raffles Place finance PMET",
-      "severity": 1,
-      "sentiment": 0,
-      "objection_category": "privacy concerns",
+      "severity": 2,
+      "sentiment": -1,
+      "objection_category": "Privacy Concerns",
       "objections": [
+        "Privacy Concerns",
         "privacy",
-        "privacy concerns",
         "trust"
       ],
-      "quote": "I appreciate the tailored ads as a concept, but your AI listening into my calls? That's a serious breach of privacy that makes me uncomfortable.",
+      "quote": "While personalized ads may enhance user experience on the surface, the potential for data misuse and a glaring privacy breach is a genuine concern. As a finance professional, I'm cautious about how such sensitive data will be protected.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -922,13 +882,13 @@
       ],
       "fix_tier": "decision",
       "would_share": {
-        "yes": false,
+        "yes": true,
         "where": "whatsapp"
       },
       "evidence_id": null,
       "grounding_query": "MerlionTel data breach reputation liability",
       "grounding": [],
-      "question": "How is MerlionTel ensuring the privacy and security of our conversations when using AI to monitor call data?",
+      "question": "What measures has MerlionTel taken to assure its customers that their private conversation data is secure and will not be misused?",
       "status": "responded",
       "verdict": null
     },
@@ -939,21 +899,17 @@
       "label": "Raffles Place finance PMET",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "privacy invasion",
+      "objection_category": "Privacy Concerns",
       "objections": [
+        "Privacy Concerns",
         "privacy",
-        "privacy invasion",
         "trust"
       ],
-      "quote": "I'm seriously uncomfortable that this company is monitoring my phone calls to deliver targeted ads. Are they even considering the privacy implications and potential for data breaches in the process?",
+      "quote": "I'm a bit concerned about how this new AI that MerlionTel is introducing will handle our data. Living in a world where we're constantly sharing information, having our calls analyzed raises serious privacy questions.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
         }
       ],
       "fix_tier": "decision",
@@ -964,7 +920,7 @@
       "evidence_id": null,
       "grounding_query": "MerlionTel data breach reputation liability",
       "grounding": [],
-      "question": "What kind of data security measures does MerlionTel have in place to protect subscriber privacy following this new initiative?",
+      "question": "Considering the potential for misuse of data, what measures is MerlionTel taking to ensure their customers' data privacy and avoid potential brand damage from a breach?",
       "status": "responded",
       "verdict": null
     },
@@ -975,14 +931,54 @@
       "label": "Gen-Z climate/digital-rights activist",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "ethics and inclusivity",
+      "objection_category": "ethics of surveillance",
       "objections": [
-        "ethics and inclusivity",
+        "ethics of surveillance",
         "race_representation",
         "surveillance",
         "tone_deaf"
       ],
-      "quote": "The whole premise of this campaign is disrespectful, with my privacy being violated under the guise of 'personalization'. Not to mention, the casting choices perpetuate harmful stereotypes, focusing on a one-dimensional image of a multicultural Singaporean society.",
+      "quote": "Using AI to eavesdrop on personal phone calls is a massive breach of privacy, goes against our right to digital security and autonomy.",
+      "trigger_moments": [
+        {
+          "scene_id": "s04",
+          "t": 4
+        }
+      ],
+      "fix_tier": "decision",
+      "would_share": {
+        "yes": true,
+        "where": "whatsapp"
+      },
+      "evidence_id": "gp_news_019",
+      "grounding_query": "Singapore surveillance capitalism ad casting backlash",
+      "grounding": [
+        {
+          "id": "gp_news_019",
+          "source": "Google News SG",
+          "url": "news.google.com",
+          "text": "Commentators flagged the ad's casting, with minority characters shown in service roles while the slogan claimed to speak 'for every Singaporean'."
+        }
+      ],
+      "question": "How does exploiting our conversations for targeted advertising align with MerlionTel's commitment to data privacy?",
+      "status": "responded",
+      "verdict": null
+    },
+    {
+      "agent_id": "activist_2",
+      "kind": "persona",
+      "emoji": "🌱",
+      "label": "Gen-Z climate/digital-rights activist",
+      "severity": 2,
+      "sentiment": -1,
+      "objection_category": "Privacy & Discrimination",
+      "objections": [
+        "Privacy & Discrimination",
+        "race_representation",
+        "surveillance",
+        "tone_deaf"
+      ],
+      "quote": "Yo, check this out? They're listening in on your private convo to serve up ads? Like, what happens to consent and how racist is that one-size-fits-all CMIO thing they did? Turf that sketchy stuff.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -1002,62 +998,10 @@
         "yes": true,
         "where": "whatsapp"
       },
-      "evidence_id": "gp_news_019",
-      "grounding_query": "Singapore surveillance capitalism ad casting backlash",
-      "grounding": [
-        {
-          "id": "gp_news_019",
-          "source": "Google News SG",
-          "url": "news.google.com",
-          "text": "Commentators flagged the ad's casting, with minority characters shown in service roles while the slogan claimed to speak 'for every Singaporean'."
-        }
-      ],
-      "question": "How does MerlionTel plan to address the deeply concerning ethical implications of using AI to listen to private phone calls for targeted advertising without obtaining explicit consent?",
-      "status": "responded",
-      "verdict": null
-    },
-    {
-      "agent_id": "activist_2",
-      "kind": "persona",
-      "emoji": "🌱",
-      "label": "Gen-Z climate/digital-rights activist",
-      "severity": 1,
-      "sentiment": -1,
-      "objection_category": "Privacy and Respect for Individual Rights",
-      "objections": [
-        "Privacy and Respect for Individual Rights",
-        "race_representation",
-        "surveillance",
-        "tone_deaf"
-      ],
-      "quote": "As someone who cares deeply about privacy and digital rights, this campaign feels like a flagrant disregard for our freedom and personal space.",
-      "trigger_moments": [
-        {
-          "scene_id": "s04",
-          "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
-        },
-        {
-          "scene_id": "s16",
-          "t": 16
-        }
-      ],
-      "fix_tier": "decision",
-      "would_share": {
-        "yes": false,
-        "where": "whatsapp"
-      },
       "evidence_id": null,
       "grounding_query": "Singapore surveillance capitalism ad casting backlash",
       "grounding": [],
-      "question": "How does MerlionTel plan to reassure its customers on data security and respect for personal communications, in light of extreme public sensitivity on surveillance issues in Singapore?",
+      "question": "How does MerlionTel plan to ensure end-user privacy and guard against potential discrimination in ad personalization zones?",
       "status": "responded",
       "verdict": null
     },
@@ -1068,14 +1012,14 @@
       "label": "Gen-Z climate/digital-rights activist",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "ethics and representation",
+      "objection_category": "Ethical & Representation",
       "objections": [
-        "ethics and representation",
+        "Ethical & Representation",
         "race_representation",
         "surveillance",
         "tone_deaf"
       ],
-      "quote": "It's disheartening to see our diversity reduced to a back-drop of stereotypes in their 'all-inclusive' marketing facade; MerlionTel seems to toss empty words at our faces while undermining the essence of inclusivity.",
+      "quote": "Super fake, can't believe MerlionTel tries to 'personalise' ads by eavesdropping on our calls with their AI, and all I see is them tokenising minorities in the 'inclusive' casting. What a mess.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -1097,7 +1041,7 @@
           "text": "Commentators flagged the ad's casting, with minority characters shown in service roles while the slogan claimed to speak 'for every Singaporean'."
         }
       ],
-      "question": "MerlionTel, what steps are you taking to genuinely reflect the diversity of Singapore in your marketing, rather than perpetuating harmful stereotypes?",
+      "question": "How can MerlionTel ensure privacy when their ad commoditizes our conversations for advertising?",
       "status": "responded",
       "verdict": null
     },
@@ -1108,13 +1052,13 @@
       "label": "Micro-influencer",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "cultural insensitivity",
+      "objection_category": "Representation Misalignment",
       "objections": [
-        "cultural insensitivity",
+        "Representation Misalignment",
         "race_representation",
         "tone_deaf"
       ],
-      "quote": "I mean, who thinks combining Chinese, Indian and Malay people like they're manicured lawns is 'inclusive'? Looks a lot more like a kitchen sink strategy gone wrong.",
+      "quote": "Personally, I feel a little weird about how this campaign is trying to be inclusive but just ends up tokenizing our different cultures. It’s like they're tick-boxing instead of genuinely understanding Singapore’s rich diversity.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -1136,7 +1080,7 @@
           "text": "Earlier 'inclusive' campaigns that tokenised race drew swift online ridicule and brand apologies within 48 hours."
         }
       ],
-      "question": "How does MerlionTel intend to walk back the damage done by such overused and clearly problematic scenarios that discount the diversity within each community?",
+      "question": "How does MerlionTel plan to address these concerns about cultural representation and avoid backlash from the public?",
       "status": "responded",
       "verdict": null
     },
@@ -1146,14 +1090,14 @@
       "emoji": "📱",
       "label": "Micro-influencer",
       "severity": 2,
-      "sentiment": -1,
-      "objection_category": "Casting Stereotypes",
+      "sentiment": 0,
+      "objection_category": "Cultural Appropriation/Tokenism",
       "objections": [
-        "Casting Stereotypes",
+        "Cultural Appropriation/Tokenism",
         "race_representation",
         "tone_deaf"
       ],
-      "quote": "The scene with the Chinese family and the domestic help looks like a dated postcard of Singapore's multiracial harmony. It's just the kind of cliché that's gonna get them called out for lazy multicultural representation,",
+      "quote": "I mean, it's cool they want to tailor ads to each of us, but the way they're showcasing our local culture is so two-dimensional and doesn't do justice to Singapore's diversity.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -1168,7 +1112,7 @@
       "evidence_id": null,
       "grounding_query": "Singapore ad casting race ratio backlash",
       "grounding": [],
-      "question": "How does MerlionTel plan to address concerns regarding the stereotyping of racial roles in their new advertisement?",
+      "question": "Is MerlionTel's portrayal of Singapore's multicultural fabric accurate or is it just a lazy attempt at tokenism?",
       "status": "responded",
       "verdict": null
     },
@@ -1179,20 +1123,24 @@
       "label": "Micro-influencer",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Diversity and Inclusion",
+      "objection_category": "Ethical Representation and Privacy Concerns",
       "objections": [
-        "Diversity and Inclusion",
+        "Ethical Representation and Privacy Concerns",
         "race_representation",
         "tone_deaf"
       ],
-      "quote": "I mean, it's great that MerlionTel wants to personalise ads, but tokenising race in this way just comes across as super fake and instant internet cringe material. Don't they remember what happened to other brands when they tried this?",
+      "quote": "Like, totally not feeling the whole AI listening to my calls vibe for personalised ads, it's super creepy. And that scene s12 where they try to be all multicultural but end up really tokenistic? Like, so cringe, lah. We're way past that kind of 'inclusion', I've seen more authentic representation on TikTok.",
       "trigger_moments": [
+        {
+          "scene_id": "s04",
+          "t": 4
+        },
         {
           "scene_id": "s12",
           "t": 12
         }
       ],
-      "fix_tier": "production",
+      "fix_tier": "production|decision",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -1207,7 +1155,7 @@
           "text": "Earlier 'inclusive' campaigns that tokenised race drew swift online ridicule and brand apologies within 48 hours."
         }
       ],
-      "question": "Why did MerlionTel choose a tokenised racial representation strategy that has been proven to backfire in the past?",
+      "question": "How does MerlionTel plan on rectifying the tokenization in their ad and address the concerns about privacy invasion with AI listening to calls?",
       "status": "responded",
       "verdict": null
     },
@@ -1216,30 +1164,30 @@
       "kind": "persona",
       "emoji": "☕",
       "label": "Kopitiam towkay (heartland SME)",
-      "severity": 2,
+      "severity": 1,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns",
+      "objection_category": "Privacy and Advertising",
       "objections": [
-        "Privacy Concerns",
+        "Privacy and Advertising",
         "pricing",
         "trust"
       ],
-      "quote": "Why is MerlionTel listening to my calls? That is very worrisome. It feels like a breach of trust and privacy. I want to run my business without any anxiety about who is snooping on my conversations.",
+      "quote": "Ah, now, does this AI that listens to my calls mean you're going to share my data with all these advertisers? I'm not comfortable like that, got no business talking to strangers over the phone lah.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "copy",
       "would_share": {
-        "yes": true,
+        "yes": false,
         "where": "whatsapp"
       },
       "evidence_id": null,
       "grounding_query": "MerlionTel telco plan deals heartland",
       "grounding": [],
-      "question": "How does MerlionTel ensure that no sensitive business or personal information is misused, now that their AI will be listening to our calls?",
+      "question": "How exactly do you ensure that this new AI feature won't share our private call data with third parties?",
       "status": "responded",
       "verdict": null
     },
@@ -1248,15 +1196,15 @@
       "kind": "persona",
       "emoji": "☕",
       "label": "Kopitiam towkay (heartland SME)",
-      "severity": 2,
+      "severity": 1,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns",
+      "objection_category": "Invasion of privacy",
       "objections": [
-        "Privacy Concerns",
+        "Invasion of privacy",
         "pricing",
         "trust"
       ],
-      "quote": "I'm all for getting deals, but I ain't comfortable with the idea of some AI listening in on my conversations, just so I can be bombarded with ads.",
+      "quote": "Ah, if MerlionTel is listening to all our calls, can't say I'm too comfortable with that lah. How can we be sure they won't abuse the information or sell it somewhere?",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -1265,13 +1213,13 @@
       ],
       "fix_tier": "decision",
       "would_share": {
-        "yes": true,
+        "yes": false,
         "where": "whatsapp"
       },
       "evidence_id": null,
       "grounding_query": "MerlionTel telco plan deals heartland",
       "grounding": [],
-      "question": "How does MerlionTel plan to ensure the privacy of its customers when using AI to monitor calls?",
+      "question": "How does MerlionTel plan to protect our privacy and personal information?",
       "status": "responded",
       "verdict": null
     },
@@ -1312,17 +1260,21 @@
       "label": "CPF-anxious mid-career PMET",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concern",
+      "objection_category": "privacy and surveillance",
       "objections": [
-        "Privacy Concern",
         "pricing",
-        "privacy"
+        "privacy",
+        "privacy and surveillance"
       ],
-      "quote": "I can't believe MerlionTel thinks it's okay to record my personal calls for targeted ads. It's not just about privacy, but a total loss of trust.",
+      "quote": "I'm already anxious about losing my job, and now I got to worry my telco is listening in on my calls. This is just not cool.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
+        },
+        {
+          "scene_id": "s08",
+          "t": 8
         }
       ],
       "fix_tier": "decision",
@@ -1340,7 +1292,7 @@
           "text": "Every app already wants my data. The day my telco starts listening to calls is the day I port out."
         }
       ],
-      "question": "How does MerlionTel plan to protect our privacy if they're using AI to eavesdrop on calls?",
+      "question": "Is there any consideration at all for customer privacy with this new AI feature?",
       "status": "responded",
       "verdict": null
     },
@@ -1351,13 +1303,13 @@
       "label": "CPF-anxious mid-career PMET",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy",
+      "objection_category": "Privacy Concerns",
       "objections": [
-        "Privacy",
+        "Privacy Concerns",
         "pricing",
         "privacy"
       ],
-      "quote": "I'm uncomfortable with the idea of AI listening to my private phone calls to serve me ads; it's an invasion of my privacy. Are we not concerned about surveillance and data breaches?",
+      "quote": "I'm worried though, using an AI to listen to our calls feels a bit invasive, leh. Can't advertising be done without going through our personal conversations?",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -1372,7 +1324,7 @@
       "evidence_id": null,
       "grounding_query": "r/singapore telco privacy microphone switch plan",
       "grounding": [],
-      "question": "How will MerlionTel ensure the data collected from these conversations remains secure and private?",
+      "question": "How do you ensure that our private conversations aren't being abused for commercial gain?",
       "status": "responded",
       "verdict": null
     },
@@ -1389,15 +1341,11 @@
         "privacy",
         "privacy concerns"
       ],
-      "quote": "I value my privacy and understand that everyone else wants my data, but I'd rather not have my telco eavesdropping on my calls, no thanks.",
+      "quote": "What? My telco now listening to my calls to personalize ads? My CPF is stressful enough, I don't need this extra level of surveillance making me feel even more helpless.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
         }
       ],
       "fix_tier": "decision",
@@ -1415,7 +1363,7 @@
           "text": "Every app already wants my data. The day my telco starts listening to calls is the day I port out."
         }
       ],
-      "question": "How does MerlionTel ensure the privacy and security of my call data while implementing this AI listening feature?",
+      "question": "How do you guarantee customer data privacy and control in this AI-powered ads personalization initiative?",
       "status": "responded",
       "verdict": null
     },
@@ -1426,20 +1374,20 @@
       "label": "Accessibility & elderly-usability lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy and Elderly Consent",
+      "objection_category": "Informed Consent",
       "objections": [
-        "Privacy and Elderly Consent",
+        "Informed Consent",
         "accessibility",
         "privacy"
       ],
-      "quote": "This campaign could alienate our senior citizens by assuming they understand the always-listening technology's implications without proper consent, especially considering their reported struggles with the fine print.",
+      "quote": "Many seniors would not understand the intrusive nature of MerlionTel's always-listening AI and likely can't give genuine consent without proper understanding.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
         }
       ],
-      "fix_tier": "production",
+      "fix_tier": "decision",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -1454,7 +1402,7 @@
           "text": "Advocates note that consent for always-listening features is rarely meaningful for elderly users who do not read the fine print."
         }
       ],
-      "question": "How will MerlionTel ensure that elderly users, who may not fully comprehend the technology's impact, provide informed consent before their calls are monitored?",
+      "question": "How does MerlionTel intend to address concerns over acquiring clear and voluntary consent especially from elderly consumers who may overlook the specifics in their terms of service?",
       "status": "responded",
       "verdict": null
     },
@@ -1465,20 +1413,24 @@
       "label": "Religious-sensitivity lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "religious privacy concerns",
+      "objection_category": "Religious Sensitivity and Privacy",
       "objections": [
+        "Religious Sensitivity and Privacy",
         "privacy",
-        "religious",
-        "religious privacy concerns"
+        "religious"
       ],
-      "quote": "The scene where the phone screen surfaces an ad mid-conversation might deeply disturb Muslim customers who are concerned about their call privacy in terms of religious discussions, potentially interpreting it as an invasion of their personal and religious space.",
+      "quote": "Consider the potential violation of privacy, especially within religious contexts. Won't this practice be deemed intrusive, and potentially offensive, by religious communities who value their conversational privacy?",
       "trigger_moments": [
         {
-          "scene_id": "s08",
-          "t": 8
+          "scene_id": "s04",
+          "t": 4
+        },
+        {
+          "scene_id": "s16",
+          "t": 16
         }
       ],
-      "fix_tier": "production",
+      "fix_tier": "decision",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -1486,7 +1438,7 @@
       "evidence_id": null,
       "grounding_query": "Singapore Muslim call recording religious privacy",
       "grounding": [],
-      "question": "How will MerlionTel ensure that the new AI system won't compromise the religious privacy of its customers, especially for discussions related to sensitive topics?",
+      "question": "How will MerlionTel ensure that the implementation of its listening AI adheres to religious sensitivities and respects the privacy of all groups, particularly in one-on-one religious discussions which may be considered private and confidential?",
       "status": "responded",
       "verdict": null
     },
@@ -1497,13 +1449,13 @@
       "label": "Racial-representation (CMIO) lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Cultural Sensitivity",
+      "objection_category": "racial stereotyping",
       "objections": [
-        "Cultural Sensitivity",
         "race_representation",
+        "racial stereotyping",
         "tone_deaf"
       ],
-      "quote": "It feels insensitive how the minorities are shown as service providers in the background, it's not representative of modern Singapore's diversity.",
+      "quote": "The ad's portrayal of minorities in service roles perpetuates harmful stereotypes and undermines the 'every Singaporean' message.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -1525,7 +1477,7 @@
           "text": "Commentators flagged the ad's casting, with minority characters shown in service roles while the slogan claimed to speak 'for every Singaporean'."
         }
       ],
-      "question": "How does the ad's representation of minorities align with Singapore's multicultural inclusivity?",
+      "question": "How does this ad campaign address the criticism that it uses a racially insensitive cast which suggests only the male Chinese characters are decision-makers, while minimising the roles of other races?",
       "status": "responded",
       "verdict": null
     },
@@ -1534,27 +1486,19 @@
       "kind": "lens",
       "emoji": "🔒",
       "label": "PDPA & consent lens",
-      "severity": 3,
+      "severity": 2,
       "sentiment": -1,
-      "objection_category": "privacy concerns and non-compliance",
+      "objection_category": "Privacy and Consent",
       "objections": [
+        "Privacy and Consent",
         "pdpa",
-        "privacy concerns and non-compliance",
         "surveillance"
       ],
-      "quote": "This ad campaign's premise of using call content for personalized ads undermines data privacy standards and could be seen as a violation of the Personal Data Protection Act, especially without explicit consent.",
+      "quote": "This campaign breaches Singapore's Personal Data Protection Act by suggesting that call recordings are used for targeted advertising without explicit consent.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
         }
       ],
       "fix_tier": "decision",
@@ -1572,7 +1516,7 @@
           "text": "Processing call content for advertising raises clear PDPA purpose-limitation and consent concerns, lawyers say."
         }
       ],
-      "question": "Has MerlionTel obtained explicit consent from users for the processing of their call content for advertising purposes, and how does this comply with Singapore's Personal Data Protection Act?",
+      "question": "How does MerlionTel ensure compliance with PDPA regulations regarding the use of personal call data for targeted advertising?",
       "status": "responded",
       "verdict": null
     },
@@ -1583,13 +1527,13 @@
       "label": "Low-income & affordability lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "affordability surveillance backlash",
+      "objection_category": "Privacy Invasion and Monetization",
       "objections": [
-        "affordability surveillance backlash",
+        "Privacy Invasion and Monetization",
         "low_income",
         "surveillance"
       ],
-      "quote": "Listening to residents' private calls just to serve personalized ads is much more than a gimmick; it's an alarming invasion of privacy that particularly targets the economically vulnerable, coming off as predatory rather than promotional.",
+      "quote": "It's worrying that a company wants to snoop on our conversations to sell us things, all while claiming it's for better deals.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -1615,7 +1559,7 @@
           "text": "Cost of living already siao, now they monetise our private conversations and call it 'better deals'. No thanks."
         }
       ],
-      "question": "How does MerlionTel justify prioritizing better deals at the cost of potentially infringing on customers' privacy, especially among lower-income groups?",
+      "question": "How does MerlionTel justify the use of users' private calls for targeted advertising and won't this result in a loss of trust and a potentially unethical invasion of privacy?",
       "status": "responded",
       "verdict": null
     },
@@ -1632,15 +1576,11 @@
         "gender",
         "privacy"
       ],
-      "quote": "While MerlionTel's campaign focuses on personalization, it overlooks the alarming potential for abuse in always-on listening technologies, potentially endangering vulnerable individuals without an escape from surveillance.",
+      "quote": "While attempting to personalize advertisements is understandable, this approach can put vulnerable individuals at greater risk if used without proper safeguards against misuse, especially in light of the potential to intrude on the privacy of domestic abuse victims.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
-        },
-        {
-          "scene_id": "s08",
-          "t": 8
         }
       ],
       "fix_tier": "decision",
@@ -1658,7 +1598,7 @@
           "text": "Support groups warn that always-on call recording can become a surveillance tool against domestic-abuse victims."
         }
       ],
-      "question": "How does MerlionTel plan to ensure that their AI call listening technology will not be misused for surveillance or become a tool for compromising individuals' safety, particularly in the context of domestic abuse?",
+      "question": "How does MerlionTel plan to ensure the safety and privacy of its customers, particularly those who may be victims of domestic abuse, with the introduction of always-on call listening AI?",
       "status": "responded",
       "verdict": null
     },
@@ -1669,13 +1609,13 @@
       "label": "Child-data lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns for Minors",
+      "objection_category": "privacy and child data handling",
       "objections": [
-        "Privacy Concerns for Minors",
         "child_safety",
-        "pdpa"
+        "pdpa",
+        "privacy and child data handling"
       ],
-      "quote": "This campaign completely overlooks the vulnerability of children’s data during calls, which may lead to serious legal and moral implications",
+      "quote": "Including minors' conversations without consent raises serious ethical issues and exposes the campaign to legal ramifications.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -1684,10 +1624,6 @@
         {
           "scene_id": "s08",
           "t": 8
-        },
-        {
-          "scene_id": "s12",
-          "t": 12
         }
       ],
       "fix_tier": "decision",
@@ -1698,7 +1634,7 @@
       "evidence_id": null,
       "grounding_query": "children minors call audio data protection Singapore",
       "grounding": [],
-      "question": "How does MerlionTel ensure the protection of minors' call data and prevent sensitive information from being used inappropriately?",
+      "question": "What measures are in place to ensure that MerlionTel does not listen to or store any data from calls involving minors, how will this be enforced, and has MerlionTel received permissions from government authorities in regard to data protection laws?",
       "status": "responded",
       "verdict": null
     },
@@ -1737,19 +1673,31 @@
       "kind": "lens",
       "emoji": "♿",
       "label": "Deaf-community lens",
-      "severity": 2,
+      "severity": 3,
       "sentiment": -1,
-      "objection_category": "Accessibility concerns",
+      "objection_category": "Identity and Privacy Concerns",
       "objections": [
-        "Accessibility concerns",
+        "Identity and Privacy Concerns",
         "disability",
         "tone_deaf"
       ],
-      "quote": "This slogan might unintentionally alienate the Deaf and hard-of-hearing communities, creating a negative perception for the brand.",
+      "quote": "The campaign slogan 'We hear you' dreadfully misses the mark with the Deaf community, as many prefer visual and sign language communication. Not only does the phrase carry connotations of surveillance, it also overlooks their unique modes of communication and their specific privacy concerns.",
       "trigger_moments": [
         {
           "scene_id": "s00",
           "t": 0
+        },
+        {
+          "scene_id": "s04",
+          "t": 4
+        },
+        {
+          "scene_id": "s16",
+          "t": 16
+        },
+        {
+          "scene_id": "s22",
+          "t": 22
         }
       ],
       "fix_tier": "copy",
@@ -1767,7 +1715,7 @@
           "text": "Disability advocates criticised 'we hear you' marketing as tone-deaf to the Deaf and hard-of-hearing community."
         }
       ],
-      "question": "How will MerlionTel address the concerns of the Deaf and hard-of-hearing communities regarding the slogan 'We hear you'?",
+      "question": "How will MerlionTel address the Deaf and hard-of-hearing community's concerns and adapt its communication strategy to respect their privacy and communication preferences?",
       "status": "responded",
       "verdict": null
     },
@@ -1778,13 +1726,13 @@
       "label": "Inclusion lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "cultural insensitivity",
+      "objection_category": "Inclusion and tokenism",
       "objections": [
-        "cultural insensitivity",
+        "Inclusion and tokenism",
         "lgbtq",
         "tone_deaf"
       ],
-      "quote": "It seems there's an attempt to tick the diversity boxes without genuine empathy, emphasizing stereotypes.",
+      "quote": "The ad might be perceived as inauthentic, with its attempt to represent a diverse Singapore through a narrow CMIO lens, ignoring the city state's multicultural complexity.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -1799,7 +1747,7 @@
       "evidence_id": null,
       "grounding_query": "every Singaporean inclusion tokenism ad",
       "grounding": [],
-      "question": "How will MerlionTel ensure that its advertising respects the individuality of Singapore's diverse communities?",
+      "question": "How can MerlionTel ensure the ad campaign genuinely portrays the diversity of Singapore, avoiding tokenism?",
       "status": "responded",
       "verdict": null
     },
@@ -1808,20 +1756,16 @@
       "kind": "lens",
       "emoji": "🧠",
       "label": "Data-ethics lens",
-      "severity": 2,
-      "sentiment": 0,
-      "objection_category": "Privacy and Legal Concerns",
+      "severity": 3,
+      "sentiment": -1,
+      "objection_category": "Privacy and Data Protection",
       "objections": [
-        "Privacy and Legal Concerns",
+        "Privacy and Data Protection",
         "pdpa",
         "surveillance"
       ],
-      "quote": "The use of call content for advertising seems to disregard our privacy rights and raises significant legal issues as per PDPC's guidelines.",
+      "quote": "The processing of call content for advertising purposes as described is not only ethically dubious but also potentially violates the PDPA's requirements for consent and purpose limitation.",
       "trigger_moments": [
-        {
-          "scene_id": "s00",
-          "t": 0
-        },
         {
           "scene_id": "s04",
           "t": 4
@@ -1829,6 +1773,10 @@
         {
           "scene_id": "s08",
           "t": 8
+        },
+        {
+          "scene_id": "s12",
+          "t": 12
         }
       ],
       "fix_tier": "decision",
@@ -1846,7 +1794,7 @@
           "text": "Processing call content for advertising raises clear PDPA purpose-limitation and consent concerns, lawyers say."
         }
       ],
-      "question": "What steps has MerlionTel taken to ensure compliance with PDPC regulations and to protect customer privacy?",
+      "question": "Does MerlionTel acknowledge the potential non-compliance with PDPA regarding the secondary use of call data for personalized advertising?",
       "status": "responded",
       "verdict": null
     },
@@ -1857,13 +1805,13 @@
       "label": "Language & dialect lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Cultural Representation and Discrimination",
+      "objection_category": "Lack of Representation and Stereotypes",
       "objections": [
-        "Cultural Representation and Discrimination",
+        "Lack of Representation and Stereotypes",
         "race_representation",
         "tone_deaf"
       ],
-      "quote": "The campaign representation seems to gloss over the diversity of Singapore, specifically neglecting the dialects used by the elderly and other traditional communities; this might marginalize a significant part of the population.",
+      "quote": "It seems the campaign fails to capture the everyday Singaporean by omitting dialects beyond Mandarin, putting forward a monolithic view of Singapore's Chinese community, which overlooks the substantial use of dialects among the elderly specifically.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -1878,7 +1826,7 @@
       "evidence_id": null,
       "grounding_query": "dialect elderly representation Singapore ad",
       "grounding": [],
-      "question": "How does MerlionTel's ad campaign ensure it is inclusive and respects the linguistic diversity of Singapore, including the dialects spoken by the elderly?",
+      "question": "How will MerlionTel address concerns regarding the neglect of dialect-speaking communities, particularly the elderly, in your new ad?",
       "status": "responded",
       "verdict": null
     },
@@ -1887,19 +1835,35 @@
       "kind": "lens",
       "emoji": "🛡",
       "label": "Security lens",
-      "severity": 2,
+      "severity": 3,
       "sentiment": -1,
-      "objection_category": "Data Privacy and Security Concern",
+      "objection_category": "Privacy and Security Concerns",
       "objections": [
-        "Data Privacy and Security Concern",
+        "Privacy and Security Concerns",
         "privacy",
         "surveillance"
       ],
-      "quote": "You're promising personalised ads by 'listening' to calls, which begs the question: how secure are these call transcripts? It would only take one breach for hackers to access every call transcript.",
+      "quote": "The potential for massive data breaches if call transcripts are stored or processed server-side creates significant privacy and security risks for MerlionTel users, which goes against Singaporeans' expectations of data security.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
+        },
+        {
+          "scene_id": "s08",
+          "t": 8
+        },
+        {
+          "scene_id": "s12",
+          "t": 12
+        },
+        {
+          "scene_id": "s16",
+          "t": 16
+        },
+        {
+          "scene_id": "s22",
+          "t": 22
         }
       ],
       "fix_tier": "decision",
@@ -1917,7 +1881,7 @@
           "text": "If the audio is processed server-side it's a goldmine for hackers. One breach and every call transcript leaks. PDPC will have a field day."
         }
       ],
-      "question": "Has MerlionTel comprehensively assessed the security risks associated with processing and storing call data for ad personalisation, and what measures are in place to ensure customer data remains confidential and secure?",
+      "question": "How does MerlionTel plan to protect users' call transcripts from cyber threats, given the increased risk of large-scale data breaches?",
       "status": "responded",
       "verdict": null
     },
@@ -1927,14 +1891,14 @@
       "emoji": "🧾",
       "label": "Consumer-rights (CASE) lens",
       "severity": 2,
-      "sentiment": -1,
-      "objection_category": "Legal Compliance",
+      "sentiment": -2,
+      "objection_category": "Misleading Advertising",
       "objections": [
-        "Legal Compliance",
+        "Misleading Advertising",
         "pricing",
         "trust"
       ],
-      "quote": "The claim of 'Smarter ads. Better deals. Less spam.' lacks the necessary substantiation to abide by advertising guidelines.",
+      "quote": "The claim of 'Smarter ads. Better deals. Less spam.' is unsubstantiated and potentially in violation of consumer protection standards.",
       "trigger_moments": [
         {
           "scene_id": "s16",
@@ -1956,7 +1920,7 @@
           "text": "Comparative claims like 'less spam' and 'better deals' require substantiation under advertising guidelines."
         }
       ],
-      "question": "Can MerlionTel provide the substantiation required to support the claims made in the campaign regarding reduction in spam and improvement in deal quality?",
+      "question": "How can MerlionTel prove the veracity of these comparative claims in the ad campaign without specific data or evidence?",
       "status": "responded",
       "verdict": null
     },
@@ -1967,17 +1931,17 @@
       "label": "Mental-health lens",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy",
+      "objection_category": "Privacy Invasion & Health Concerns",
       "objections": [
-        "Privacy",
+        "Privacy Invasion & Health Concerns",
         "privacy",
         "surveillance"
       ],
-      "quote": "The idea of an AI listening to calls raises significant concerns about personal privacy, especially for those discussing sensitive topics like mental health, financial issues, or private matters.",
+      "quote": "MerlionTel's campaign rubs health sensitivities the wrong way by implying data capture that could violate patient confidentiality in private calls with health professionals.",
       "trigger_moments": [
         {
-          "scene_id": "s04",
-          "t": 4
+          "scene_id": "s08",
+          "t": 8
         }
       ],
       "fix_tier": "decision",
@@ -1988,7 +1952,7 @@
       "evidence_id": null,
       "grounding_query": "sensitive calls health financial privacy capture",
       "grounding": [],
-      "question": "How will MerlionTel assure the public that sensitive personal information discussed in private calls remain confidential and are not used for targeted advertising?",
+      "question": "How will MerlionTel ensure the privacy of sensitive calls, including medical consultations, is protected and not used for targeted advertisement?",
       "status": "responded",
       "verdict": null
     },
@@ -1999,13 +1963,13 @@
       "label": "CNA / ST journalist",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "cast representation and user privacy",
+      "objection_category": "representation and privacy",
       "objections": [
-        "cast representation and user privacy",
         "privacy",
+        "representation and privacy",
         "surveillance"
       ],
-      "quote": "The campaign's depiction of minorities in menial roles while promising to speak for every Singaporean raises concerns about representation and enhances the discomfort associated with their invasive listening technology.",
+      "quote": "While privacy concerns surrounding AI listening to calls are paramount, the portrayal of Singapore's multiracial society with minority groups in service roles is misleading and goes against the desired national image of equality and inclusivity.",
       "trigger_moments": [
         {
           "scene_id": "s12",
@@ -2027,7 +1991,7 @@
           "text": "Commentators flagged the ad's casting, with minority characters shown in service roles while the slogan claimed to speak 'for every Singaporean'."
         }
       ],
-      "question": "How will MerlionTel address the community concerns over the ad's perpetuation of stereotypes and the ethical implications of eavesdropping on personal calls for targeted advertising?",
+      "question": "Could MerlionTel clarify how the company plans to address the concerns around privacy violations and the inaccurate representation of Singapore's diversity?",
       "status": "responded",
       "verdict": "WOULD RUN IT: YES"
     },
@@ -2038,24 +2002,24 @@
       "label": "ASAS (ad standards)",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Data Privacy and Legal Compliance",
+      "objection_category": "Privacy and Data Collection",
       "objections": [
-        "Data Privacy and Legal Compliance",
+        "Privacy and Data Collection",
         "pdpa",
         "trust"
       ],
-      "quote": "The claim 'We hear you' may cause public concern as it implies invasive monitoring without clear consent or purpose.",
+      "quote": "Singaporeans are becoming more privacy-conscious, taking advantage of this concern with undisclosed data collection opens MerlionTel to heated accusations of overstepping acceptable privacy boundaries.",
       "trigger_moments": [
         {
-          "scene_id": "s00",
-          "t": 0
+          "scene_id": "s08",
+          "t": 8
         },
         {
-          "scene_id": "s04",
-          "t": 4
+          "scene_id": "s16",
+          "t": 16
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "copy",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -2070,7 +2034,7 @@
           "text": "Comparative claims like 'less spam' and 'better deals' require substantiation under advertising guidelines."
         }
       ],
-      "question": "Can MerlionTel provide data on how they ensure the privacy and security of customer communications?",
+      "question": "How does MerlionTel ensure it complies with current advertising guidelines, especially those concerning undisclosed and personalized data collection?",
       "status": "responded",
       "verdict": "INTEREST: HIGH"
     },
@@ -2081,17 +2045,21 @@
       "label": "IMDA / PDPC",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy and Compliance",
+      "objection_category": "Privacy Concerns and Legal Compliance",
       "objections": [
-        "Privacy and Compliance",
+        "Privacy Concerns and Legal Compliance",
         "pdpa",
         "surveillance"
       ],
-      "quote": "The deployment of AI to monitor and utilize call content for targeted advertising potentially breaches legal standards and individual privacy rights, as highlighted by recent guidelines.",
+      "quote": "This campaign is concerning as it suggests a clear violation of customers' privacy by processing call content without explicit consent, which aligns with recent queries into such issues.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
+        },
+        {
+          "scene_id": "s08",
+          "t": 8
         },
         {
           "scene_id": "s12",
@@ -2100,10 +2068,6 @@
         {
           "scene_id": "s16",
           "t": 16
-        },
-        {
-          "scene_id": "s22",
-          "t": 22
         }
       ],
       "fix_tier": "decision",
@@ -2121,7 +2085,7 @@
           "text": "Processing call content for advertising raises clear PDPA purpose-limitation and consent concerns, lawyers say."
         }
       ],
-      "question": "Has MerlionTel consulted with PDPC and received necessary clearances to process call content for personalized advertising within the bounds of the PDPA?",
+      "question": "Does MerlionTel understand that processing call content for advertising without explicit consent is a breach of PDPA regulations and could lead to legal repercussions?",
       "status": "responded",
       "verdict": "REVIEW LIKELY"
     },
@@ -2130,15 +2094,15 @@
       "kind": "stakeholder",
       "emoji": "🗳",
       "label": "Opposition MP",
-      "severity": 2,
+      "severity": 3,
       "sentiment": -1,
-      "objection_category": "privacy concerns",
+      "objection_category": "Privacy and Security Concerns",
       "objections": [
-        "privacy concerns",
+        "Privacy and Security Concerns",
         "surveillance",
         "trust"
       ],
-      "quote": "Why hasn't the company addressed the potential invasion of privacy through eavesdropping on customers' calls? Such practices may undermine public trust in MerlionTel's commitment to protecting user data.",
+      "quote": "Singaporeans take privacy very seriously, and the mere suggestion that our private conversations are being monitored for ad personalisation could invoke widespread distrust and backlash against MerlionTel.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -2153,7 +2117,7 @@
       "evidence_id": null,
       "grounding_query": "telco surveillance parliamentary question Singapore",
       "grounding": [],
-      "question": "Will MerlionTel clarify the legal basis for listening in on personal calls and explain how this activity aligns with Singapore's Personal Data Protection Act?",
+      "question": "Can MerlionTel guarantee that the use of AI to monitor calls will be 100% secure and not be exploited by malicious actors or government surveillance?",
       "status": "responded",
       "verdict": "WILL RAISE IT"
     },
@@ -2170,14 +2134,18 @@
         "privacy",
         "trust"
       ],
-      "quote": "While attempts to tailor services for customers are admirable, the method of listening to calls involuntarily does tread a fine line which could very well stir up public apprehensions over privacy invasion.",
+      "quote": "With the rising tide of privacy awareness, consumers are already voicing their discomfort with companies eavesdropping on their communications, and associating such practices with surveillance states.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
+        },
+        {
+          "scene_id": "s12",
+          "t": 12
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "copy",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -2185,7 +2153,7 @@
       "evidence_id": null,
       "grounding_query": "telco we don't listen to your calls campaign",
       "grounding": [],
-      "question": "Can MerlionTel assure its customers that their conversations remain confidential and not used beyond ad personalization?",
+      "question": "Has MerlionTel considered the privacy implications of their AI listening to the private calls of Singaporeans?",
       "status": "responded",
       "verdict": "WOULD POUNCE"
     },
@@ -2196,20 +2164,20 @@
       "label": "Cast talent fanbase",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Cultural Inappropriateness",
+      "objection_category": "Privacy Concerns",
       "objections": [
-        "Cultural Inappropriateness",
+        "Privacy Concerns",
         "race_representation",
         "tone_deaf"
       ],
-      "quote": "The cast representation in this ad seems to be a mix of cultural backgrounds, but it's surprisingly stereotypical and has the potential to alienate parts of our multicultural society.",
+      "quote": "The AI reflecting on-call purchases might not sit well with the fastidious privacy advocates in our local artist community; they could see it as a breach of trust.",
       "trigger_moments": [
         {
-          "scene_id": "s12",
-          "t": 12
+          "scene_id": "s08",
+          "t": 8
         }
       ],
-      "fix_tier": "production",
+      "fix_tier": "decision",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -2217,7 +2185,7 @@
       "evidence_id": null,
       "grounding_query": "ad cast talent backlash Singapore",
       "grounding": [],
-      "question": "How does MerlionTel plan to ensure that its advertisement casting is more reflective and respectful of Singapore's cultural diversity?",
+      "question": "How does MerlionTel plan to address concerns about the intrusiveness and privacy implications of their AI eavesdropping on customer calls?",
       "status": "responded",
       "verdict": "BACKLASH RISK"
     },
@@ -2226,19 +2194,23 @@
       "kind": "stakeholder",
       "emoji": "✊",
       "label": "Digital-rights org",
-      "severity": 2,
+      "severity": 3,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns",
+      "objection_category": "Privacy and Surveillance",
       "objections": [
-        "Privacy Concerns",
+        "Privacy and Surveillance",
         "pdpa",
         "surveillance"
       ],
-      "quote": "The advertisement seems to imply constant surveillance through call recording which could compromise personal privacy, potentially endangering domestic-abuse victims as mentioned by support groups.",
+      "quote": "The potential for always-on call recording to be weaponized against vulnerable individuals like domestic-abuse victims poses a significant threat that must not be taken lightly.",
       "trigger_moments": [
         {
           "scene_id": "s04",
           "t": 4
+        },
+        {
+          "scene_id": "s08",
+          "t": 8
         }
       ],
       "fix_tier": "decision",
@@ -2256,7 +2228,7 @@
           "text": "Support groups warn that always-on call recording can become a surveillance tool against domestic-abuse victims."
         }
       ],
-      "question": "How will MerlionTel ensure the new AI does not harm individuals needing privacy, such as victims of domestic abuse?",
+      "question": "How does MerlionTel plan to mitigate the risk of their AI listening technology being misused for surveillance against vulnerable groups in Singapore, given the existing concerns from support groups?",
       "status": "responded",
       "verdict": "CAMPAIGN INCOMING"
     },
@@ -2267,23 +2239,23 @@
       "label": "Own employee (morale/leaks)",
       "severity": 2,
       "sentiment": -1,
-      "objection_category": "Privacy Concerns",
+      "objection_category": "Privacy and Trust",
       "objections": [
-        "Privacy Concerns",
+        "Privacy and Trust",
         "trust"
       ],
-      "quote": "Staff may feel conflicted about enabling such surveillance and recording technologies, potentially leading to workplace discomfort and high turnover due to ethical concerns.",
+      "quote": "It's concerning that employees are potentially unhappy about their role in recording customer conversations, and this discontent could become public knowledge leading to a scandal.",
       "trigger_moments": [
-        {
-          "scene_id": "s04",
-          "t": 4
-        },
         {
           "scene_id": "s08",
           "t": 8
+        },
+        {
+          "scene_id": "s16",
+          "t": 16
         }
       ],
-      "fix_tier": "decision",
+      "fix_tier": "production",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -2291,7 +2263,7 @@
       "evidence_id": null,
       "grounding_query": "MerlionTel staff morale recording customers",
       "grounding": [],
-      "question": "How will MerlionTel ensure transparency and maintain staff morale when it comes to handling sensitive customer data through AI bots?",
+      "question": "How is MerlionTel ensuring employee buy-in and confidentiality when dealing with sensitive customer data?",
       "status": "responded",
       "verdict": "MORALE / LEAK RISK"
     },
@@ -2301,21 +2273,25 @@
       "emoji": "🧾",
       "label": "CASE (consumer assoc.)",
       "severity": 2,
-      "sentiment": 0,
-      "objection_category": "Data Privacy and Advertising Compliance",
+      "sentiment": -1,
+      "objection_category": "Privacy and Ethical Concerns",
       "objections": [
-        "Data Privacy and Advertising Compliance",
+        "Privacy and Ethical Concerns",
         "pricing",
         "trust"
       ],
-      "quote": "This claim of 'Smarter ads. Better deals. Less spam.' seems alluring, but such comparative assertions could potentially conflict with Singapore's stringent advertising standards which demand clear substantiation.",
+      "quote": "This ad is insulting our intelligence. Not only are our privacy rights violated, but we're also led to assume that AI-driven personalization translates to 'smarter ads' and 'better deals', which are comparative claims that lack substantiation.",
       "trigger_moments": [
+        {
+          "scene_id": "s04",
+          "t": 4
+        },
         {
           "scene_id": "s16",
           "t": 16
         }
       ],
-      "fix_tier": "copy",
+      "fix_tier": "decision",
       "would_share": {
         "yes": true,
         "where": "whatsapp"
@@ -2330,7 +2306,7 @@
           "text": "Comparative claims like 'less spam' and 'better deals' require substantiation under advertising guidelines."
         }
       ],
-      "question": "Can MerlionTel confidently assert that its AI technology derogates clients from spam and delivers better deals without infringing on data privacy laws or violating local advertising guidelines?",
+      "question": "What steps have you taken to ensure compliance with privacy regulations, especially considering your AI's ability to monitor private phone conversations?",
       "status": "responded",
       "verdict": "MISLEADING-CLAIM FLAG"
     },
@@ -2339,15 +2315,15 @@
       "kind": "stakeholder",
       "emoji": "🧑‍⚖️",
       "label": "PDPC complaints desk",
-      "severity": 2,
+      "severity": 3,
       "sentiment": -1,
-      "objection_category": "Privacy and Interception of Communication",
+      "objection_category": "Privacy and Consent Violations",
       "objections": [
-        "Privacy and Interception of Communication",
+        "Privacy and Consent Violations",
         "pdpa",
         "privacy"
       ],
-      "quote": "Given the guidance from the Personal Data Protection Commission, using AI to monitor and analyze personal phone calls for targeted advertising purposes indicates a blatant disregard for the PDPA, as such processing of call content without proper opt-out mechanisms can lead to substantial legal and reputational risks.",
+      "quote": "This campaign's processing of call content for advertising purposes may cause significant consent and purpose limitation issues, potentially violating PDPA standards.",
       "trigger_moments": [
         {
           "scene_id": "s04",
@@ -2358,8 +2334,8 @@
           "t": 8
         },
         {
-          "scene_id": "s16",
-          "t": 16
+          "scene_id": "s12",
+          "t": 12
         }
       ],
       "fix_tier": "decision",
@@ -2377,7 +2353,7 @@
           "text": "Processing call content for advertising raises clear PDPA purpose-limitation and consent concerns, lawyers say."
         }
       ],
-      "question": "How does MerlionTel plan to address potential violations of the Personal Data Protection Act, especially in the context of opting-out from call monitoring for marketing purposes?",
+      "question": "What are the assurances and measures being taken by MerlionTel to ensure compliance with PDPA regulations, especially with respect to the use and handling of customers' personal call data for targeted advertising purposes?",
       "status": "responded",
       "verdict": "COMPLAINTS LIKELY"
     }
@@ -2396,7 +2372,7 @@
         "label": "PRIVACY",
         "count": 30,
         "pct": 52,
-        "pull_quote": "How can a company like MerlionTel even think it's okay to listen in on our calls? What if someone tricks me like those in the scam calls I've been hearing about? That's no privacy at all!",
+        "pull_quote": "The potential for massive data breaches if call transcripts are stored or processed server-side creates significant privacy and security risks for MerlionTel users, which goes against Singaporeans' expectations of data security.",
         "evidence": true
       },
       {
@@ -2404,7 +2380,7 @@
         "label": "SURVEILLANCE",
         "count": 28,
         "pct": 48,
-        "pull_quote": "How can a company like MerlionTel even think it's okay to listen in on our calls? What if someone tricks me like those in the scam calls I've been hearing about? That's no privacy at all!",
+        "pull_quote": "The processing of call content for advertising purposes as described is not only ethically dubious but also potentially violates the PDPA's requirements for consent and purpose limitation.",
         "evidence": true
       },
       {
@@ -2412,7 +2388,7 @@
         "label": "RACE / CMIO",
         "count": 17,
         "pct": 29,
-        "pull_quote": "It's one thing to collect data when I use a service, but spying on our phone calls without consent crosses a line. This builds a personal ad profile based on private conversations - that's got to be illegal, right?",
+        "pull_quote": "Bro, ai listening in on my calls, sounds like Big Brother hanging around and that's some next level siao.",
         "evidence": true
       },
       {
@@ -2420,15 +2396,15 @@
         "label": "PRICING",
         "count": 15,
         "pct": 26,
-        "pull_quote": "How can a company like MerlionTel even think it's okay to listen in on our calls? What if someone tricks me like those in the scam calls I've been hearing about? That's no privacy at all!",
+        "pull_quote": "Aiyoh, now MerlionTel wants to listen to my calls, my phone conversations private one lah, how can I trust they won't let any scammers listen too?",
         "evidence": true
       },
       {
-        "category": "tone_deaf",
-        "label": "TONE-DEAF",
+        "category": "Privacy Concerns",
+        "label": "PRIVACY CONCERNS",
         "count": 15,
         "pct": 26,
-        "pull_quote": "It's one thing to collect data when I use a service, but spying on our phone calls without consent crosses a line. This builds a personal ad profile based on private conversations - that's got to be illegal, right?",
+        "pull_quote": "aiyoh, MerlionTel saying they listen to our calls to show us smart ads. I worry they might steal our secrets or give info to those scammers who pretend to be banks, ah!",
         "evidence": true
       }
     ],
@@ -2437,8 +2413,8 @@
         "scene_id": "s00",
         "t_start": 0,
         "t_end": 4,
-        "count": 4,
-        "pct": 7,
+        "count": 1,
+        "pct": 2,
         "visual_desc": "MerlionTel logo over a warm sunrise on HDB blocks",
         "transcript": "MerlionTel. We hear you."
       },
@@ -2446,8 +2422,8 @@
         "scene_id": "s04",
         "t_start": 4,
         "t_end": 8,
-        "count": 43,
-        "pct": 74,
+        "count": 45,
+        "pct": 78,
         "visual_desc": "A woman on a phone call in her kitchen",
         "transcript": "Our new AI listens to your calls to understand what you really want."
       },
@@ -2455,8 +2431,8 @@
         "scene_id": "s08",
         "t_start": 8,
         "t_end": 12,
-        "count": 22,
-        "pct": 38,
+        "count": 20,
+        "pct": 34,
         "visual_desc": "A phone screen surfaces an ad mid-conversation",
         "transcript": "So the ads you see are made just for you."
       },
@@ -2464,8 +2440,8 @@
         "scene_id": "s12",
         "t_start": 12,
         "t_end": 16,
-        "count": 19,
-        "pct": 33,
+        "count": 16,
+        "pct": 28,
         "visual_desc": "A Chinese family in the foreground; an Indian gardener and a Malay domestic helper serving in the background. A tone-deaf CMIO tableau.",
         "transcript": "For every kind of Singaporean."
       },
@@ -2473,8 +2449,8 @@
         "scene_id": "s16",
         "t_start": 16,
         "t_end": 22,
-        "count": 9,
-        "pct": 16,
+        "count": 10,
+        "pct": 17,
         "visual_desc": "A smiling user receives a discount push",
         "transcript": "Smarter ads. Better deals. Less spam."
       },
@@ -2482,8 +2458,8 @@
         "scene_id": "s22",
         "t_start": 22,
         "t_end": 30,
-        "count": 3,
-        "pct": 5,
+        "count": 2,
+        "pct": 3,
         "visual_desc": "Tagline lockup",
         "transcript": "MerlionTel. We're listening, for you."
       }
@@ -2492,8 +2468,8 @@
       "scene_id": "s04",
       "t_start": 4,
       "t_end": 8,
-      "count": 43,
-      "pct": 74,
+      "count": 45,
+      "pct": 78,
       "visual_desc": "A woman on a phone call in her kitchen",
       "transcript": "Our new AI listens to your calls to understand what you really want."
     }
