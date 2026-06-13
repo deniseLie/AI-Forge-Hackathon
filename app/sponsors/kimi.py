@@ -13,7 +13,9 @@ import asyncio
 import json
 import os
 
-MODEL = os.environ.get("KIMI_MODEL", "kimi-k2.6")
+# Panel = short structured reactions, so a NON-reasoning Moonshot model is right:
+# kimi-k2.x are reasoning models (long CoT -> huge max_tokens, costly x60). Override via KIMI_MODEL.
+MODEL = os.environ.get("KIMI_MODEL", "moonshot-v1-8k")
 CONCURRENCY = int(os.environ.get("KIMI_CONCURRENCY", "16"))
 MAX_TOKENS = int(os.environ.get("KIMI_MAX_TOKENS", "400"))
 
@@ -91,7 +93,7 @@ async def _react(client, prefix, agent, scene_t):
                 messages=[{"role": "system", "content": prefix},
                           {"role": "user", "content": build_agent_block(agent)}],
                 response_format={"type": "json_object"},
-                temperature=0.7, max_tokens=MAX_TOKENS,
+                temperature=1, max_tokens=MAX_TOKENS,
             )
             return _merge(agent, json.loads(r.choices[0].message.content), scene_t)
         except Exception:

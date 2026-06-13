@@ -16,6 +16,11 @@ import json
 import os
 import sys
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 
@@ -49,9 +54,17 @@ async def main():
     scenario, creative = golden["scenario"], golden["creative_manifest"]
     print(f"baking mode={args.mode} agents={len(agents)} brand={scenario['brand']}")
 
-    # 1) per-agent grounding (each agent runs its own query)
+    # 1) per-agent grounding (each agent runs its own query). Falls back to baked
+    #    grounding if live Bright Data is unavailable (e.g. zones not created yet).
+    ground_warned = False
     for a in agents:
-        a["grounding"] = brightdata.ground(a, scenario, mode=args.mode)
+        try:
+            g = brightdata.ground(a, scenario, mode=args.mode)
+            a["grounding"] = g if g else a.get("grounding", [])
+        except Exception as e:
+            if not ground_warned:
+                print(f"  grounding: live unavailable ({type(e).__name__}); using baked grounding")
+                ground_warned = True
 
     # 2) Kimi panel (fan-out, shared cached prefix + per-agent block)
     reactions = await kimi.run_panel(agents, scenario, creative, mode=args.mode)
