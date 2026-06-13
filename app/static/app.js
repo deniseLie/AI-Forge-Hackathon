@@ -20,11 +20,11 @@ function el(tag, attrs = {}, ...kids) {
   return n;
 }
 
-const SEV_COLOR = ["#2E4A45", "#5E7A4E", "#E8A317", "#F5402C"];
+const SEV_COLOR = ["#9DB0A9", "#CBB24E", "#C2622C", "#A6201A"];
 function heatSeverity(s) { return SEV_COLOR[s] ?? SEV_COLOR[0]; }
 
 function heatPct(p) {
-  const stops = [[0, [46, 74, 69]], [0.45, [232, 163, 23]], [0.75, [245, 64, 44]], [1, [255, 45, 85]]];
+  const stops = [[0, [157, 176, 169]], [0.45, [203, 178, 78]], [0.72, [194, 98, 44]], [1, [166, 32, 26]]];
   p = Math.max(0, Math.min(1, p));
   for (let i = 1; i < stops.length; i++) {
     if (p <= stops[i][0]) {
@@ -34,10 +34,27 @@ function heatPct(p) {
       return `rgb(${c.join(",")})`;
     }
   }
-  return "rgb(255,45,85)";
+  return "rgb(166,32,26)";
 }
 
 const fmtT = (s) => `0:${String(Math.round(s)).padStart(2, "0")}`;
+
+// monogram avatars (no emoji): 2-letter initials in a severity-tinted cell
+function initials(label) {
+  const w = (label || "").replace(/[^A-Za-z ]/g, " ").split(/\s+/).filter(Boolean);
+  if (!w.length) return "–";
+  if (w.length === 1) return w[0].slice(0, 2).toUpperCase();
+  return (w[0][0] + w[1][0]).toUpperCase();
+}
+function textOn(sev) { return sev >= 2 ? "#fff" : "var(--ink)"; }
+function avatar(r, size) {
+  const abst = r.status === "abstain";
+  return el("span", {
+    class: `mono ${r.kind}`,
+    style: `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.36)}px;` +
+      `background:${abst ? "var(--paper-3)" : heatSeverity(r.severity)};color:${abst ? "var(--ink-faint)" : textOn(r.severity)}`,
+  }, initials(r.label));
+}
 
 function countUp(node, to, ms = 1100) {
   const start = performance.now();
@@ -107,10 +124,10 @@ function renderPanel(d) {
     const abst = r.status === "abstain";
     const tile = el("div", {
       class: `tile ${r.kind} ${abst ? "abstain" : "sev" + r.severity}`,
-      style: `--i:${i}; background:${abst ? "" : heatSeverity(r.severity)}`,
+      style: `--i:${i}; background:${abst ? "" : heatSeverity(r.severity)}; color:${abst ? "" : textOn(r.severity)}`,
       title: `${r.label}${abst ? " (abstained)" : ""}`,
       onclick: () => !abst && openQuote(r),
-    }, r.emoji);
+    }, initials(r.label));
     grid.append(tile);
   });
   $("panel-sub").textContent = `${d.reactions.length} agents`;
@@ -123,7 +140,7 @@ function renderPanel(d) {
   );
 }
 function legend(kind, label) {
-  return el("span", { class: "lg" }, el("span", { class: `swatch ${kind}`, style: "background:#5E7A4E" }), label);
+  return el("span", { class: "lg" }, el("span", { class: `swatch ${kind}`, style: "background:var(--calm)" }), label);
 }
 
 function renderClusters(d) {
@@ -134,7 +151,7 @@ function renderClusters(d) {
     wrap.append(el("div", { class: "cluster" },
       el("div", { class: "cluster-head" },
         el("span", { class: "cluster-cat" }, c.label,
-          el("span", { class: "evi " + (c.evidence ? "has" : "spec") }, c.evidence ? "📎 evidence" : "speculation")),
+          el("span", { class: "evi " + (c.evidence ? "has" : "spec") }, c.evidence ? "cited" : "speculation")),
         el("span", { class: "cluster-pct" }, c.pct + "%")),
       el("div", { class: "cluster-bar" }, bar),
       el("div", { class: "cluster-quote" }, `“${c.pull_quote}”`),
@@ -172,7 +189,7 @@ function renderStakeholders(d) {
   wrap.replaceChildren();
   d.stakeholder_badges.forEach((b) => {
     wrap.append(el("div", { class: "badge", title: b.note },
-      el("span", { class: "bemoji" }, b.emoji),
+      el("span", { class: "mono stakeholder", style: "width:30px;height:30px;font-size:11px;background:var(--severe);color:#fff" }, initials(b.role)),
       el("div", {},
         el("div", { class: "brole" }, b.role),
         el("div", { class: "bverdict" }, b.verdict)),
@@ -241,18 +258,18 @@ function openQuote(r) {
   const kindLabel = { persona: "Persona · first person", lens: "Concern lens · third person", stakeholder: "Stakeholder" }[r.kind];
   const grounded = r.grounding && r.grounding.length;
   $("qc-body").replaceChildren(
-    el("div", { class: "qc-emoji" }, r.emoji),
+    avatar(r, 46),
     el("div", { class: "qc-role" }, `${r.label} — ${kindLabel}`),
     el("div", { class: "qc-quote" }, `“${r.quote}”`),
     el("div", { class: "qc-meta" },
       el("span", { class: "qc-tier " + r.fix_tier }, r.fix_tier + "-fixable"),
-      el("span", { class: "qc-search" }, "🔍 " + (r.grounding_query || "—"))),
+      el("span", { class: "qc-search" }, "Searched: " + (r.grounding_query || "—"))),
     el("div", { class: "qc-ground" },
       el("div", { class: "qc-ground-h" }, grounded ? "Grounded in its own scrape" : "Grounding"),
       grounded
         ? el("div", { class: "qc-snippets" }, r.grounding.map((g) =>
             el("div", { class: "qc-snippet" },
-              el("span", { class: "qc-src" }, "📎 " + g.source),
+              el("span", { class: "qc-src" }, "Source — " + g.source),
               el("span", { class: "qc-snip" }, "“" + g.text + "”"))))
         : el("span", { class: "evi spec" }, "model speculation — no evidence found for this objection")),
     el("div", { class: "qc-q" }, el("b", {}, "Press-conference question: "), r.question),
@@ -356,7 +373,7 @@ function playSwarm(d) {
   const SPONSORS = ["Kimi K2.6 reasoning", "Bright Data grounding", "Daytona sandboxed", "VideoDB scene-aware"];
 
   const tiles = reactions.map((r) => {
-    const t = el("div", { class: `rv-tile ${r.kind}`, title: r.label }, r.emoji);
+    const t = el("div", { class: `rv-tile ${r.kind}`, title: r.label }, initials(r.label));
     grid.append(t);
     return t;
   });
@@ -369,17 +386,17 @@ function playSwarm(d) {
       const tile = tiles[i];
       tile.classList.add("on");
       if (abst) tile.classList.add("abstain");
-      else tile.style.background = heatSeverity(r.severity);
+      else { tile.style.background = heatSeverity(r.severity); tile.style.color = textOn(r.severity); }
 
       if (!abst) {
         responded++;
         feed.prepend(el("div", { class: "feed-item sev" + r.severity },
-          el("span", { class: "fi-emoji" }, r.emoji),
+          avatar(r, 28),
           el("div", { class: "fi-body" },
             el("div", { class: "fi-label" }, r.label),
             el("div", { class: "fi-quote" }, "“" + r.quote + "”"),
             el("div", { class: "fi-ground" },
-              "🔍 " + (r.grounding_query || "no live grounding") +
+              "Searched: " + (r.grounding_query || "no live grounding") +
               (r.grounding && r.grounding.length ? "  ·  found on " + r.grounding[0].source : "")))));
         while (feed.children.length > 7) feed.lastChild.remove();
       }
