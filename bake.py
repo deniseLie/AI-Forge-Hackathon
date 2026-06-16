@@ -5,7 +5,7 @@ The dashboard always replays golden_run.json. This script PRODUCES it:
 
   python bake.py --mode fixture            # reproduce the baked run, no network (testable now)
   python bake.py --mode live --mini 6      # cheap smoke test: 6 real agents, does not write
-  python bake.py --mode live               # full 60-agent live bake -> golden/golden_run.json
+  python bake.py --mode live               # full 60-agent live bake -> demo/golden_run.json
 
 "build real, demo baked": run this ONCE offline to make a real golden run; the demo replays it.
 Dev against --mode fixture; spend Kimi/Bright Data credit only on deliberate live bakes.
@@ -49,8 +49,8 @@ async def main():
     ap.add_argument("--sandbox-mini", type=int, default=0, help="only sandbox the first N agents")
     ap.add_argument("--sandbox-keep", action="store_true", help="keep Daytona sandboxes instead of deleting them")
     ap.add_argument("--mini", type=int, default=0, help="only the first N agents; does not write")
-    ap.add_argument("--src", default=os.path.join(ROOT, "golden", "golden_run.json"))
-    ap.add_argument("--out", default=os.path.join(ROOT, "golden", "golden_run.json"))
+    ap.add_argument("--src", default=os.path.join(ROOT, "demo", "golden_run.json"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "demo", "golden_run.json"))
     args = ap.parse_args()
     load_dotenv(os.path.join(ROOT, ".env"))
 

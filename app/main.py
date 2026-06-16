@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(ROOT, "app", "static")
-GOLDEN_PATH = os.path.join(ROOT, "golden", "golden_run.json")
+GOLDEN_PATH = os.path.join(ROOT, "demo", "golden_run.json")
 
 try:
     from dotenv import load_dotenv

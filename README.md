@@ -82,7 +82,7 @@ campaign (text / image / video)
 ```
 
 To stay demo-safe on stage, a full run is **baked offline** into one JSON artifact
-(`golden/golden_run.json`); the dashboard replays it, so the presentation never depends on Wi-Fi,
+(`demo/golden_run.json`); the dashboard replays it, so the presentation never depends on Wi-Fi,
 sponsor latency, or 60 live calls.
 
 ## Tech stack

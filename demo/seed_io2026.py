@@ -1,4 +1,4 @@
-"""Seed golden/golden_run.json with the Google I/O 2026 "always-on AI" scenario.
+"""Seed demo/golden_run.json with the Google I/O 2026 "always-on AI" scenario.
 
 Swaps the fictional MerlionTel "We're Listening" ad film for the REAL Google I/O 2026
 "100 things" keynote, read as an always-on / surveillance-risk product launch:
@@ -10,17 +10,22 @@ The 60-agent roster is reframed from the Singaporean kopitiam panel to a GLOBAL
 tech-world panel (privacy power-users, devs, security researchers + privacy / GDPR /
 antitrust / child-data lenses + tech-press / regulator / EFF-style stakeholders).
 
-Run:  python seed_io2026.py        # writes golden/golden_run.json
-then: python bake.py --mode fixture  # recompute aggregate + validate the render
-      python bake.py --mode live     # later: regenerate the 60 reactions via Kimi
+Run (from the repo root):
+      python demo/seed_io2026.py       # writes demo/golden_run.json
+then: python bake.py --mode fixture    # recompute aggregate + validate the render
+      python bake.py --mode live       # later: regenerate the 60 reactions via Kimi
 """
 import json
 import os
+import sys
 
-from app.pipeline import reduce_aggregate
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+sys.path.insert(0, ROOT)  # so `app` imports when run as a script from anywhere
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(ROOT, "golden", "golden_run.json")
+from app.pipeline import reduce_aggregate  # noqa: E402
+
+OUT = os.path.join(HERE, "golden_run.json")
 
 # --------------------------------------------------------------------------- #
 # 1. Scenario + creative manifest (the keynote as the "film", privacy cut)
